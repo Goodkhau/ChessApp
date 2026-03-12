@@ -1,13 +1,14 @@
+import { Chess, type Square } from "chess.js";
 import { useRef, useState } from "react";
 import { Chessboard, type PieceDropHandlerArgs, type SquareHandlerArgs } from "react-chessboard";
-import { Chess, type Square } from "chess.js";
 import "./ChessElement.css";
+
 
 export default function ChessElement() {
   const chessGameRef = useRef(new Chess());
   const chessGame = chessGameRef.current;
 
-  const [chessPosition, setChessPosition] = useState(chessGame.fen());
+  const [chessPosition, setChessPosition] = useState();
   const [status, setStatus] = useState("White to move");
   const [moveFrom, setMoveFrom] = useState("");
   const [optionSquares, setOptionSquares] = useState<Record<string, React.CSSProperties>>({});

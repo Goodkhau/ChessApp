@@ -1,7 +1,7 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import Homepage from "./Homepage"
-import ChessElement from "./ChessElement"
+import ChessElement from "./ChessElement";
+import Homepage from "./Homepage";
 
 
 export default function App() {

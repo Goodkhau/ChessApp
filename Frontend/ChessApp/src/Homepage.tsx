@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Homepage.css";
 
 const BOARD_SIZE = 8;
@@ -53,7 +53,7 @@ const FEATURES = [
 
 export default function Homepage() {
   const [pieces, setPieces] = useState<Record<string, string>>({ ...INITIAL_PIECES });
-  const [highlighted, setHighlighted] = useState<[number, number][]>([]);
+  const [highlighted, setHighlighted] = useState<Array<[number, number]>>([]);
   const [moveIndex, setMoveIndex] = useState(0);
   const heroRef = useRef<HTMLDivElement>(null);
 
