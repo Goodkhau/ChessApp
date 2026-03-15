@@ -1,0 +1,468 @@
+/* ─── Root ─────────────────────────────────────────────────── */
+.chess-root {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: #0a0a0a;
+  color: #e8e0d0;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ─── Noise overlay ─────────────────────────────────────────── */
+.chess-noise {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+/* ─── Nav ───────────────────────────────────────────────────── */
+.chess-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+  backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.85);
+}
+
+.chess-nav-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chess-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.chess-logo-king {
+  font-size: 1.5rem;
+  color: #d4af37;
+}
+
+.chess-logo-text {
+  font-family: 'Georgia', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.25em;
+  color: #e8e0d0;
+}
+
+.chess-nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.chess-nav-link {
+  color: rgba(232, 224, 208, 0.55);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  font-family: 'Georgia', serif;
+  transition: color 0.2s;
+}
+
+.chess-nav-link:hover {
+  color: #e8e0d0;
+}
+
+.chess-nav-cta {
+  background: transparent;
+  border: 1px solid rgba(212, 175, 55, 0.5);
+  color: #d4af37;
+  padding: 0.4rem 1.1rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  font-family: 'Georgia', serif;
+  transition: all 0.2s;
+}
+
+.chess-nav-cta:hover {
+  background: rgba(212, 175, 55, 0.08);
+}
+
+/* ─── Hero ──────────────────────────────────────────────────── */
+.chess-hero {
+  padding-top: 120px;
+  padding-bottom: 80px;
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.chess-grid-lines {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(212, 175, 55, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212, 175, 55, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+.chess-hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.chess-hero-text {
+  flex: 1 1 50%;
+  min-width: 0;
+}
+
+/* ─── Badge ─────────────────────────────────────────────────── */
+.chess-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(212, 175, 55, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 0.3rem 0.85rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: #d4af37;
+  margin-bottom: 1.8rem;
+}
+
+.chess-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d4af37;
+  display: inline-block;
+  box-shadow: 0 0 6px #d4af37;
+}
+
+/* ─── Headline ──────────────────────────────────────────────── */
+.chess-headline {
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 1;
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.chess-headline-light {
+  color: rgba(232, 224, 208, 0.4);
+  font-weight: 300;
+}
+
+.chess-headline-bold {
+  color: #e8e0d0;
+  font-weight: 700;
+}
+
+.chess-headline-accent {
+  color: #d4af37;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.chess-subheadline {
+  color: rgba(232, 224, 208, 0.55);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 440px;
+  margin-bottom: 2.5rem;
+}
+
+/* ─── CTAs ──────────────────────────────────────────────────── */
+.chess-cta-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 3rem;
+}
+
+.chess-btn-primary {
+  background: #d4af37;
+  color: #0a0a0a;
+  border: none;
+  padding: 0.85rem 2rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-family: 'Georgia', serif;
+  transition: all 0.2s;
+}
+
+.chess-btn-primary:hover {
+  background: #e8c84a;
+}
+
+.chess-btn-secondary {
+  background: transparent;
+  color: rgba(232, 224, 208, 0.7);
+  border: 1px solid rgba(232, 224, 208, 0.2);
+  padding: 0.85rem 2rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  font-family: 'Georgia', serif;
+  transition: all 0.2s;
+}
+
+.chess-btn-secondary:hover {
+  border-color: rgba(232, 224, 208, 0.5);
+  color: #e8e0d0;
+}
+
+/* ─── Stats ─────────────────────────────────────────────────── */
+.chess-stats-row {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(212, 175, 55, 0.12);
+  padding-top: 1.8rem;
+}
+
+.chess-stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.chess-stat-value {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #e8e0d0;
+  letter-spacing: -0.02em;
+}
+
+.chess-stat-label {
+  font-size: 0.7rem;
+  color: rgba(232, 224, 208, 0.4);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ─── Board ─────────────────────────────────────────────────── */
+.chess-board-wrap {
+  flex: 0 0 auto;
+  position: relative;
+}
+
+.chess-board-glow {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.chess-board-container {
+  display: flex;
+  gap: 0.4rem;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  padding: 0.75rem;
+  background: rgba(15, 12, 10, 0.8);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6), inset 0 0 30px rgba(0, 0, 0, 0.3);
+}
+
+.chess-rank-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding-bottom: 1.4rem;
+}
+
+.chess-rank-label {
+  font-size: 0.6rem;
+  color: rgba(212, 175, 55, 0.4);
+  width: 0.8rem;
+  text-align: center;
+  line-height: 1;
+}
+
+.chess-board-row {
+  display: flex;
+}
+
+.chess-cell {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.chess-piece {
+  font-size: 1.7rem;
+  line-height: 1;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.chess-file-labels {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 0.3rem;
+}
+
+.chess-file-label {
+  font-size: 0.6rem;
+  color: rgba(212, 175, 55, 0.4);
+  width: 52px;
+  text-align: center;
+}
+
+.chess-board-caption {
+  margin-top: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.7rem;
+  color: rgba(232, 224, 208, 0.3);
+  letter-spacing: 0.1em;
+}
+
+.chess-board-caption-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  display: inline-block;
+  box-shadow: 0 0 6px #4ade80;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ─── Features ──────────────────────────────────────────────── */
+.chess-features {
+  padding: 6rem 0;
+  border-top: 1px solid rgba(212, 175, 55, 0.08);
+  position: relative;
+  z-index: 1;
+}
+
+.chess-features-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.chess-section-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: #d4af37;
+  margin-bottom: 0.75rem;
+}
+
+.chess-section-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #e8e0d0;
+  margin: 0 0 3rem;
+  letter-spacing: -0.02em;
+}
+
+.chess-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5px;
+  background: rgba(212, 175, 55, 0.08);
+}
+
+.chess-feature-card {
+  background: #0a0a0a;
+  padding: 2rem;
+  transition: background 0.2s;
+}
+
+.chess-feature-card:hover {
+  background: rgba(212, 175, 55, 0.04);
+}
+
+.chess-feature-icon {
+  font-size: 1.5rem;
+  color: #d4af37;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.chess-feature-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e8e0d0;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.02em;
+}
+
+.chess-feature-desc {
+  font-size: 0.85rem;
+  color: rgba(232, 224, 208, 0.5);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ─── CTA Banner ────────────────────────────────────────────── */
+.chess-cta-banner {
+  border-top: 1px solid rgba(212, 175, 55, 0.08);
+  padding: 5rem 0;
+  position: relative;
+  z-index: 1;
+  background: rgba(212, 175, 55, 0.03);
+}
+
+.chess-cta-banner-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.chess-cta-banner-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chess-cta-banner-king {
+  font-size: 2rem;
+  color: rgba(212, 175, 55, 0.3);
+  margin-bottom: 0.25rem;
+}
+
+.chess-cta-banner-title {
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #e8e0d0;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.chess-cta-banner-sub {
+  color: rgba(232, 224, 208, 0.5);
+  font-size: 0.9rem;
+  margin: 0;
+}
