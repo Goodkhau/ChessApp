@@ -14,7 +14,9 @@ async def model_response(ModelName: str, san: list[str] = [], fen: str = ''):
             detail = f"Model: \"{ModelName}\" does not exist."
         )
 
+    prediction: list[float] = ModelEnum[ModelName].value.prediction(san, fen).tolist()[0]
+    description: list[str] = ModelEnum[ModelName].value.description()
+
     return {
-        'prediction': ModelEnum[ModelName].value.prediction(san, fen).tolist()[0],
-        'outputDescription': ModelEnum[ModelName].value.description(),
+        'prediction': [ {key: value} for key, value in zip(description, prediction) ]
     }

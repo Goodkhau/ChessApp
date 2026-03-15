@@ -5,4 +5,6 @@ __pycache__/
 .env
 .python-version
 
+# Model output files
+# .keras files get quite large so better to store in a elsewhere
 Models/*/*.keras
