@@ -1,8 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import ChessElement from "./pages/ChessAI_ModelName/ChessElement.tsx";
+import ChessPage from "./pages/ChessAI/ModelName/ChessPage.tsx";
 import Homepage from "./pages/Homepage/Homepage.tsx";
-
 
 const routes = [
     {
@@ -11,7 +10,7 @@ const routes = [
     },
     {
         path: "/ChessAI/:ModelName",
-        element: <ChessElement />
+        element: <ChessPage />
     }
 ];
 
