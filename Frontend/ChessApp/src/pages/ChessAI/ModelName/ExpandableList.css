@@ -187,9 +187,9 @@
   min-width: 0;
 }
 
-.expandable__item-label {
+.expandable__item-move {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 450;
   color: var(--text-primary);
   white-space: nowrap;
   overflow: hidden;
@@ -210,7 +210,7 @@
   transition: width 0.3s ease;
 }
 
-.expandable__item-value {
+.expandable__item-weight {
   font-size: 12px;
   font-family: 'DM Mono', monospace;
   font-weight: 500;

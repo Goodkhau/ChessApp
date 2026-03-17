@@ -1,0 +1,61 @@
+import _ from "lodash";
+
+interface MoveParameters {
+    possibleMoves: string[];
+    pseudoSans?: Array<{
+        psuedoSan: string;
+        rating: number;
+    }>;
+}
+
+export interface WeightedMove {
+    weight: number;
+    move: string
+};
+
+const pieceLetters = ['N', 'B', 'R', 'Q', 'K'];
+
+const randomMove = ({
+    possibleMoves
+}: MoveParameters): WeightedMove[] => {
+    return _.map(possibleMoves, (move) => {
+        return {
+            weight: 1/possibleMoves.length,
+            move,
+        };
+    });
+};
+
+const pseudoSanMove = ({
+    possibleMoves,
+    pseudoSans,
+}: MoveParameters) => {
+    const weightedMoves: WeightedMove[] = [];
+
+     _.map(pseudoSans, ({
+        psuedoSan,
+        rating,
+    }) => {
+        _.map(possibleMoves, (move) => {
+            if (move[move.length-1] === '+')
+                move = move.substring(0, move.length-1);
+
+            if (move.substring(move.length-2, move.length) !== psuedoSan.substring(psuedoSan.length-2, psuedoSan.length))
+                return;
+
+            if (psuedoSan === move)
+                weightedMoves.push({ weight: rating, move });
+            else if (psuedoSan.length === 2 && !pieceLetters.includes(move.substring(0, 1)))
+                weightedMoves.push({ weight: rating, move });
+            else if (pieceLetters.includes(move.substring(0, 1)))
+                weightedMoves.push({ weight: rating, move });
+        });
+    });
+
+    return weightedMoves;
+};
+
+export const MoveEnum = {
+    RANDOM: randomMove,
+    PSEUDO_SAN: pseudoSanMove,
+} as const;

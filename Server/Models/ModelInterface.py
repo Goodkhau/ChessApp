@@ -9,3 +9,7 @@ class ModelInterface(ABC):
     @abstractmethod
     def description() -> list[str]:
         pass
+
+    @abstractmethod
+    def type() -> str:
+        pass

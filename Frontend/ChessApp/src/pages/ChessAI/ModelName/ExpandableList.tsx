@@ -3,29 +3,29 @@ import { useState } from "react";
 
 import "./ExpandableList.css";
 
-interface ListItem {
-  id: string;
-  label: string;
-  value: number;
-  color: string;
+export interface PredictionListItem {
+  id?: string;
+  move: string;
+  weight: number;
+  color?: string;
 }
 
 interface ExpandableListProps {
   icon?: string;
-  items?: ListItem[];
+  predictionList: PredictionListItem[];
 }
 
-const DEFAULT_ITEMS: ListItem[] = [
-  { id: "1", label: "Authentication Service", value: 0.899, color: "#5a5aff" },
-  { id: "2", label: "Database Layer", value: 0.749, color: "#3effa0" },
-  { id: "3", label: "API Gateway", value: 0.199, color: "#ff9f5a" },
-  { id: "4", label: "Cache Manager", value: 1.000, color: "#ff5a8a" },
-  { id: "5", label: "Event Bus", value: 0.698, color: "#c05aff" },
-];
+// const DEFAULT_ITEMS: PredictionListItem[] = [
+//   { id: "1", move: "Authentication Service", weight: 0.899, color: "#5a5aff" },
+//   { id: "2", move: "Database Layer", weight: 0.749, color: "#3effa0" },
+//   { id: "3", move: "API Gateway", weight: 0.199, color: "#ff9f5a" },
+//   { id: "4", move: "Cache Manager", weight: 1.000, color: "#ff5a8a" },
+//   { id: "5", move: "Event Bus", weight: 0.698, color: "#c05aff" },
+// ];
 
 export default function ExpandableList({
   icon = ">>",
-  items = DEFAULT_ITEMS,
+  predictionList,
 }: ExpandableListProps) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -36,7 +36,7 @@ export default function ExpandableList({
           className="expandable__toggle"
           onClick={() => setIsOpen((openState) => !openState)}
           aria-expanded={isOpen}
-          aria-label={isOpen ? "Collapse" : "Expand"}
+          aria-move={isOpen ? "Collapse" : "Expand"}
         >
           <span className={`expandable__toggle-icon ${isOpen ? "is-open" : ""}`}>
             {icon}
@@ -45,12 +45,12 @@ export default function ExpandableList({
         <div className="expandable__content">
           <div className="expandable__list">
             {
-              _.map(items, ({
+              _.map(predictionList, ({
                 id = "unknown",
-                label = "unknown",
-                value = Number.NEGATIVE_INFINITY,
+                move = "unknown",
+                weight = Number.NEGATIVE_INFINITY,
                 color = "#FFFFFF",
-              }: ListItem, index: number) => (
+              }: PredictionListItem, index: number) => (
                 <div
                   key={id}
                   className="expandable__item"
@@ -61,15 +61,15 @@ export default function ExpandableList({
                     style={{ background: color }}
                   />
                   <div className="expandable__item-content">
-                    <div className="expandable__item-label">{label}</div>
+                    <div className="expandable__item-move">{move}</div>
                     <div className="expandable__item-progress-bar-container">
                       <div
                         className="expandable__item-progress-bar"
-                        style={{ width: (value*100)+"%" }}
+                        style={{ width: (weight*100)+"%" }}
                       />
                     </div>
                   </div>
-                  <div className="expandable__item-value">{value.toFixed(3)}</div>
+                  <div className="expandable__item-weight">{weight.toFixed(3)}</div>
                 </div>
               ))
             }

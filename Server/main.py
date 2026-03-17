@@ -18,5 +18,6 @@ async def model_response(ModelName: str, san: list[str] = [], fen: str = ''):
     description: list[str] = ModelEnum[ModelName].value.description()
 
     return {
-        'prediction': [ {key: value} for key, value in zip(description, prediction) ]
+        'type': ModelEnum[ModelName].value.type(),
+        'prediction': [ { 'psuedoSan': key, 'rating': value} for key, value in zip(description, prediction) ]
     }

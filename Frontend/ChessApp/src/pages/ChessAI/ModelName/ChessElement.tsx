@@ -1,10 +1,20 @@
 import { Chess, type Square } from "chess.js";
-import { useRef, useState } from "react";
+import { type Dispatch, type SetStateAction, useRef, useState } from "react";
 import { Chessboard, type PieceDropHandlerArgs, type SquareHandlerArgs } from "react-chessboard";
+import { useParams } from "react-router-dom";
+
 import "./ChessElement.css";
 
+import { type PredictionListItem } from "./ExpandableList";
+import { getModelResponse } from "./GetMove";
+import { MoveEnum } from "./MoveList";
 
-export default function ChessElement() {
+interface ChessElementProp {
+  setPredictionList: Dispatch<SetStateAction<PredictionListItem[]>>
+}
+
+export default function ChessElement({ setPredictionList }: ChessElementProp) {
+  const {ModelName} = useParams();
   const chessGame = useRef(new Chess());
 
   const [chessPosition, setChessPosition] = useState<string>();
@@ -24,11 +34,22 @@ export default function ChessElement() {
     }
   }
 
-  function makeRandomMove() {
+  async function makeMove() {
     const possibleMoves = chessGame.current.moves();
     if (chessGame.current.isGameOver()) return;
-    const randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
-    chessGame.current.move(randomMove);
+
+    const {
+      data: {
+        type = "RANDOM",
+        prediction = []
+      } = {}
+    } = (await getModelResponse(ModelName ?? ' '));
+
+    const weightedMoveSet = MoveEnum[type as keyof typeof MoveEnum]({possibleMoves, pseudoSans: prediction});
+    console.log(weightedMoveSet);
+    setPredictionList(weightedMoveSet);
+    const randomMove = weightedMoveSet[Math.floor(Math.random() * weightedMoveSet.length)];
+    chessGame.current.move(randomMove.move);
     setChessPosition(chessGame.current.fen());
     updateStatus();
   }
@@ -83,7 +104,7 @@ export default function ChessElement() {
 
     setChessPosition(chessGame.current.fen());
     updateStatus();
-    setTimeout(makeRandomMove, 300);
+    setTimeout(makeMove, 10000);
     setMoveFrom("");
     setOptionSquares({});
   }
@@ -97,7 +118,7 @@ export default function ChessElement() {
       updateStatus();
       setMoveFrom("");
       setOptionSquares({});
-      setTimeout(makeRandomMove, 500);
+      setTimeout(makeMove, 10000);
       return true;
     } catch {
       return false;
@@ -110,6 +131,7 @@ export default function ChessElement() {
     setStatus("White to move");
     setMoveFrom("");
     setOptionSquares({});
+    setPredictionList([]);
   }
 
   const chessboardOptions = {
