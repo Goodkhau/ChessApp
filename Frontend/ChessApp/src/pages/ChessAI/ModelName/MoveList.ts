@@ -1,11 +1,9 @@
 import _ from "lodash";
+import { PredictionSet } from "./GetMove";
 
 interface MoveParameters {
     possibleMoves: string[];
-    pseudoSans?: Array<{
-        psuedoSan: string;
-        rating: number;
-    }>;
+    prediction: PredictionSet
 }
 
 export interface WeightedMove {
@@ -28,11 +26,13 @@ const randomMove = ({
 
 const pseudoSanMove = ({
     possibleMoves,
-    pseudoSans,
+    prediction: {
+        psuedoSans
+    } = {}
 }: MoveParameters) => {
     const weightedMoves: WeightedMove[] = [];
 
-     _.map(pseudoSans, ({
+     _.map(psuedoSans, ({
         psuedoSan,
         rating,
     }) => {

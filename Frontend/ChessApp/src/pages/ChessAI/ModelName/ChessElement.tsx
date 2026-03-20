@@ -42,10 +42,10 @@ export default function ChessElement({ setPredictionList }: ChessElementProp) {
     const {
       data: {
         type = "RANDOM",
-        prediction = []
-      } = {}
+        prediction
+      }
     } = (await getModelResponse(ModelName ?? ' '));
-    const weightedMoveSet = MoveEnum[type as keyof typeof MoveEnum]({possibleMoves, pseudoSans: prediction});
+    const weightedMoveSet = MoveEnum[type as keyof typeof MoveEnum]({possibleMoves, prediction});
     const weights = _.map(weightedMoveSet, ({weight}) => weight);
     setPredictionList(weightedMoveSet);
     const randomMove = weighted.select(weightedMoveSet, weights);
