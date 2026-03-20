@@ -12,7 +12,7 @@ interface PsuedoSan {
 
 export async function getModelResponse (modelName: string): Promise<AxiosResponse<ModelResponse> | { data: {type: string, prediction: []} }> {
     try {
-        return await axios.get(`http://127.0.0.1:8000/model/${modelName}`);
+        return await axios.get(`http://127.0.0.1:8080/api/model/${modelName}`);
     } catch {
         return {
             data: {

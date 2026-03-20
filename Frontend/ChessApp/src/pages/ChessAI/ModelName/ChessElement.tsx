@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 
 import "./ChessElement.css";
 
+import _ from "lodash";
+import weighted from "weighted";
 import { type PredictionListItem } from "./ExpandableList";
 import { getModelResponse } from "./GetMove";
 import { MoveEnum } from "./MoveList";
@@ -37,18 +39,16 @@ export default function ChessElement({ setPredictionList }: ChessElementProp) {
   async function makeMove() {
     const possibleMoves = chessGame.current.moves();
     if (chessGame.current.isGameOver()) return;
-
     const {
       data: {
         type = "RANDOM",
         prediction = []
       } = {}
     } = (await getModelResponse(ModelName ?? ' '));
-
     const weightedMoveSet = MoveEnum[type as keyof typeof MoveEnum]({possibleMoves, pseudoSans: prediction});
-    console.log(weightedMoveSet);
+    const weights = _.map(weightedMoveSet, ({weight}) => weight);
     setPredictionList(weightedMoveSet);
-    const randomMove = weightedMoveSet[Math.floor(Math.random() * weightedMoveSet.length)];
+    const randomMove = weighted.select(weightedMoveSet, weights);
     chessGame.current.move(randomMove.move);
     setChessPosition(chessGame.current.fen());
     updateStatus();

@@ -43,6 +43,8 @@ const pseudoSanMove = ({
             if (move.substring(move.length-2, move.length) !== psuedoSan.substring(psuedoSan.length-2, psuedoSan.length))
                 return;
 
+            rating = Math.pow(rating, 20);
+
             if (psuedoSan === move)
                 weightedMoves.push({ weight: rating, move });
             else if (psuedoSan.length === 2 && !pieceLetters.includes(move.substring(0, 1)))
@@ -52,10 +54,10 @@ const pseudoSanMove = ({
         });
     });
 
-    return weightedMoves;
+    return weightedMoves.sort((a, b) => b.weight - a.weight);
 };
 
 export const MoveEnum = {
     RANDOM: randomMove,
-    PSEUDO_SAN: pseudoSanMove,
+    PSUEDO_SAN: pseudoSanMove,
 } as const;
