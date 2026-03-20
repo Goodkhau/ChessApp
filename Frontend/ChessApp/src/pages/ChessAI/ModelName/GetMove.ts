@@ -3,7 +3,7 @@ import axios, { type AxiosResponse } from "axios";
 interface ErrorResponse {
     data: {
         type: "RANDOM",
-        prediction: never
+        prediction: never,
     }
 }
 
@@ -20,14 +20,14 @@ export interface PredictionSet {
 }
 
 export async function getModelResponse (modelName: string): Promise<AxiosResponse<ModelResponse> | ErrorResponse> {
-    try {
-        return await axios.get(`http://127.0.0.1:8080/api/model/${modelName}`);
-    } catch {
-        return {
-            data: {
-                type: "RANDOM",
-                prediction: {} as never
-            }
-        };
-    }
+	try {
+		return await axios.get(`http://127.0.0.1:8080/api/model/${modelName}`);
+	} catch {
+		return {
+			data: {
+				type: "RANDOM",
+				prediction: {} as never,
+			},
+		};
+	}
 }
