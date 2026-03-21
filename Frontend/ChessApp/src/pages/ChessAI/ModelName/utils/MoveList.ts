@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { PredictionSet } from "./GetMove";
+import { PredictionSet } from "../GetMove.ts";
 
 interface MoveParameters {
     possibleMoves: string[];
