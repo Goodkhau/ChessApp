@@ -43,7 +43,7 @@ const pseudoSanMove = ({
 			if (move.substring(move.length - 2, move.length) !== psuedoSan.substring(psuedoSan.length - 2, psuedoSan.length))
 				return;
 
-			rating = Math.pow(rating, 20);
+			rating = Math.pow(rating, 30);
 
 			if (psuedoSan === move)
 				weightedMoves.push({ weight: rating, move });

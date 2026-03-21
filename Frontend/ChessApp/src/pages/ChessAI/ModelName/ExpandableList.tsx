@@ -15,14 +15,6 @@ interface ExpandableListProps {
   predictionList: PredictionListItem[];
 }
 
-// const DEFAULT_ITEMS: PredictionListItem[] = [
-//   { id: "1", move: "Authentication Service", weight: 0.899, color: "#5a5aff" },
-//   { id: "2", move: "Database Layer", weight: 0.749, color: "#3effa0" },
-//   { id: "3", move: "API Gateway", weight: 0.199, color: "#ff9f5a" },
-//   { id: "4", move: "Cache Manager", weight: 1.000, color: "#ff5a8a" },
-//   { id: "5", move: "Event Bus", weight: 0.698, color: "#c05aff" },
-// ];
-
 export default function ExpandableList({
 	icon = ">>",
 	predictionList,
