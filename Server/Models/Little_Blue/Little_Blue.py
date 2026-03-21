@@ -23,3 +23,6 @@ class Little_Blue(ModelInterface):
     
     def description(self) -> list[str]:
         return self.outputDescription
+
+    def type(self) -> str:
+        return 'PSUEDO_SAN'

@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap');
+
+:root {
+  --bg: #0e0e0f;
+  --surface: #161618;
+  --surface-hover: #1e1e21;
+  --border: #2a2a2e;
+  --border-active: #5a5aff;
+  --text-primary: #f0f0f2;
+  --text-secondary: #7a7a8a;
+  --accent: #5a5aff;
+  --accent-glow: rgba(90, 90, 255, 0.18);
+  --accent-subtle: rgba(90, 90, 255, 0.08);
+  --green: #3effa0;
+  --toggle-size: 40px;
+  --radius: 12px;
+  --radius-sm: 6px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.expandable-demo {
+  top: 5%;
+  left: 5%;
+  position: fixed;
+  z-index: 10;
+  max-width: 90vw;
+  width: 100%;
+}
+
+/* ── Shell ── */
+.expandable {
+  position: absolute;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* ── 40×40 Toggle Button ── */
+.expandable__toggle {
+  all: unset;
+  width: var(--toggle-size);
+  height: var(--toggle-size);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  z-index: 1;
+  transition:
+    border-color 200ms var(--ease),
+    box-shadow 200ms var(--ease),
+    background 200ms var(--ease);
+}
+
+.expandable__toggle:hover {
+  border-color: var(--accent);
+  background: var(--surface-hover);
+}
+
+.expandable.is-open .expandable__toggle {
+  border-color: var(--border-active);
+  box-shadow: 0 0 0 1px var(--border-active), 0 4px 20px var(--accent-glow);
+  background: var(--accent-subtle);
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.expandable__toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.expandable__toggle-icon {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 250ms var(--ease);
+  display: block;
+}
+
+.expandable__toggle-icon.is-open {
+  transform: rotate(180deg);
+}
+
+/* ── Expanding Content ── */
+/* Step 1: expand width (clip horizontally)   */
+/* Step 2: expand height (clip vertically)    */
+/* Both driven purely by CSS transitions on max-width / max-height */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.expandable__content {
+  scrollbar-width: none; /* Firefox */
+  /* collapsed: zero width, zero height */
+  max-width: 0;
+  max-height: 0;
+  overflow: auto;
+
+  background: var(--surface);
+  border: 1px solid transparent;
+  border-left: none;
+  border-radius: 0 var(--radius) var(--radius) var(--radius);
+
+  /* width expands first (300ms), then height (300ms after 280ms delay) */
+  transition:
+    max-width 280ms var(--ease),
+    max-height 320ms var(--ease) 260ms,
+    border-color 200ms var(--ease) 260ms,
+    box-shadow 200ms var(--ease) 260ms;
+}
+
+.expandable.is-open .expandable__content {
+  max-width: 420px;
+  /* tall enough to fit all items; height animates after width finishes */
+  max-height: 600px;
+  border-color: var(--border-active);
+  box-shadow: 0 0 0 1px var(--border-active), 0 8px 32px var(--accent-glow);
+
+  /* collapse: height first, then width */
+  transition:
+    max-height 260ms var(--ease),
+    max-width 280ms var(--ease) 240ms,
+    border-color 200ms var(--ease),
+    box-shadow 200ms var(--ease);
+}
+
+.expandable__list {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 300px;
+  width: 75vw;
+}
+
+/* ── List Items ── */
+.expandable__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 180ms var(--ease), transform 180ms var(--ease);
+
+  /* staggered fade-in when opening */
+  animation: none;
+}
+
+.expandable.is-open .expandable__item {
+  animation: itemIn 220ms var(--ease) both;
+}
+
+@keyframes itemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.expandable__item:hover {
+  background: var(--surface-hover);
+  transform: translateX(2px);
+}
+
+.expandable__item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.expandable__item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.expandable__item-move {
+  font-size: 14px;
+  font-weight: 450;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.expandable__item-progress-bar-container {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 5px;
+}
+
+.expandable__item-progress-bar {
+  height: 100%;
+  background-color: #4caf50;
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+.expandable__item-weight {
+  font-size: 12px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  color: var(--green);
+  flex-shrink: 0;
+}
