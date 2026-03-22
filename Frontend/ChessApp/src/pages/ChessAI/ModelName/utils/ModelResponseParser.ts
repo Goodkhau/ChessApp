@@ -15,6 +15,7 @@ interface WeightedMove {
 	psuedoSan?: string;
 };
 
+
 const randomMove = ({
 	possibleMoves,
 }: MoveParameters): WeightedMove[] => {
@@ -62,6 +63,7 @@ const MoveFormatEnum = {
 	RANDOM: randomMove,
 	PSUEDO_SAN: pseudoSanMove,
 } as const;
+
 
 class ModelResponseParser {
 	private readonly type;
