@@ -1,15 +1,11 @@
-import { useState } from "react";
-
-import ChessElement from "./components/ChessElement.tsx";
-import ExpandableList, { type PredictionListItem } from "./components/ExpandableList.tsx";
+import ChessBoardComponent from "./components/ChessBoardComponent.tsx";
+import ExpandableListComponent from "./components/ExpandableListComponent.tsx";
 
 export default function ChessPage() {
-	const [predictionList, setPredictionList] = useState<PredictionListItem[]>([]);
-
 	return (
 		<div>
-			<ChessElement setPredictionList={setPredictionList} />
-			<ExpandableList predictionList={predictionList}/>
+			<ChessBoardComponent />
+			<ExpandableListComponent />
 		</div>
 	);
 }

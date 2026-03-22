@@ -1,17 +1,19 @@
 import _ from "lodash";
-import { PredictionSet } from "../GetMove.ts";
+import type { ModelResponse, PredictionSet } from "./apis/ModelResponse.ts";
+
+
+const pieceLetters = ['N', 'B', 'R', 'Q', 'K'];
 
 interface MoveParameters {
     possibleMoves: string[];
     prediction: PredictionSet
 }
 
-export interface WeightedMove {
+interface WeightedMove {
     weight: number;
-    move: string
+    move: string;
+	psuedoSan?: string;
 };
-
-const pieceLetters = ['N', 'B', 'R', 'Q', 'K'];
 
 const randomMove = ({
 	possibleMoves,
@@ -37,8 +39,7 @@ const pseudoSanMove = ({
 		rating,
 	}) => {
 		_.map(possibleMoves, (move) => {
-			if (move[move.length - 1] === '+')
-				move = move.substring(0, move.length - 1);
+			move = (move[move.length - 1] === '+') ? move.substring(0, move.length - 1) : move;
 
 			if (move.substring(move.length - 2, move.length) !== psuedoSan.substring(psuedoSan.length - 2, psuedoSan.length))
 				return;
@@ -57,7 +58,33 @@ const pseudoSanMove = ({
 	return weightedMoves.sort((a, b) => b.weight - a.weight);
 };
 
-export const MoveEnum = {
+const MoveFormatEnum = {
 	RANDOM: randomMove,
 	PSUEDO_SAN: pseudoSanMove,
 } as const;
+
+class ModelResponseParser {
+	private readonly type;
+	private readonly prediction;
+	
+	constructor ({
+		data: {
+			type,
+			prediction,
+		},
+	}: ModelResponse) {
+		this.type = type;
+		this.prediction = prediction;
+	}
+
+	getParsedResponse (sans: string[]) {
+		return MoveFormatEnum[this.type as keyof typeof MoveFormatEnum]({ possibleMoves: sans, prediction: this.prediction });
+	}
+}
+
+export {
+	ModelResponseParser,
+	MoveFormatEnum,
+	WeightedMove
+};
+
