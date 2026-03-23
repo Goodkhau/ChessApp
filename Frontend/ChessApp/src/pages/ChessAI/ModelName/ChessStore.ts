@@ -1,5 +1,6 @@
 import { Chess } from "chess.js";
 import { create } from "zustand";
+import { useShallow } from "zustand/shallow";
 
 
 interface Prediction {
@@ -10,7 +11,7 @@ interface Prediction {
 }
 
 interface ChessDetails {
-	modelName: string;
+	modelName?: string;
 	chessEngine: Chess;
 	predictions: Prediction[];
 }
@@ -26,13 +27,20 @@ interface Actions {
 	hasInstance: (id: string) => boolean;
 	createInstance: (id: string, details: ChessDetails) => void;
 	deleteInstance: (id: string) => void;
-	getChessInstance: (id: string) => ChessDetails | undefined;
+	getInstanceChessEngine: (id: string) => Chess;
+	getInstancePredictionList: (id: string) => Prediction[];
+	setInstancePredictionList: (id: string, list: Prediction[]) => void;
 }
 
 
 const useChessStore = create<State & {actions: Actions}>()((set, get) => ({
 	length: 0,
-	instances: {},
+	instances: {
+		board_00: {
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+	},
 
 	actions: {
 		hasInstance: (id) => {
@@ -56,14 +64,28 @@ const useChessStore = create<State & {actions: Actions}>()((set, get) => ({
 			};
 		}),
 
-		getChessInstance: (id) => { return get().instances[id]; },	
+		getInstanceChessEngine: (id) => { return get().instances[id].chessEngine; },
+
+		getInstancePredictionList: (id) => { return get().instances[id].predictions; },
+		setInstancePredictionList: (id, list) => set((state) => ({
+			length: state.length,
+			instances: {
+				...state.instances,
+				[id]: {
+					chessEngine: state.instances[id].chessEngine,
+					predictions: list,
+				},
+			},
+		})),
 	},
 }));
 
 const useChessStoreActions = () => useChessStore((state) => state.actions);
+const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
 
 
 export {
-	useChessStoreActions
+	useChessStoreActions,
+	useInstanceKeys
 };
 

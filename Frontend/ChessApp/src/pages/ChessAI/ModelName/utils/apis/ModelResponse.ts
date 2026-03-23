@@ -1,6 +1,7 @@
 import axios from "axios";
 import _ from "lodash";
 
+
 interface ErrorResponse {
         type: "RANDOM",
         prediction: never,
@@ -19,6 +20,7 @@ interface PredictionSet {
         rating: number;
     }>
 }
+
 
 async function getModelResponse ({ modelName, sans }:{
     modelName: string,
@@ -42,7 +44,6 @@ async function getModelResponse ({ modelName, sans }:{
 
 export {
 	getModelResponse,
-	ModelResponse,
-	PredictionSet
+	type ModelResponse,
+	type PredictionSet
 };
-
