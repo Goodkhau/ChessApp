@@ -27,11 +27,11 @@ async function getModelResponse ({ modelName, sans }:{
     sans?: string[]
 }): Promise<ModelResponse> {
 	const param = (sans && sans.length !== 0)
-		? _.reduce(sans, (first, san) => first + "san=" + san, "?")
+		? "?" + _.map(sans, (san) => "san=" + san).join("&")
 		: "";
 
 	try {
-		return await axios.get(`http://127.0.0.1:8080/api/model/${modelName}${param}`);
+		return await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/model/${modelName}${param}`);
 	} catch {
 		return {
 			data: {

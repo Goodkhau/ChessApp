@@ -1,5 +1,5 @@
 import "./ExpandableListComponent.css";
 
-export default function ExpandableListComponent({ instanceID }) {
+export default function ExpandableListComponent({ instanceKey }) {
 	return (<div />);
 }

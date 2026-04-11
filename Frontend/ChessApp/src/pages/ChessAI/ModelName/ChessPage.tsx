@@ -7,13 +7,13 @@ import ExpandableListComponent from "./components/ExpandableListComponent.tsx";
 export default function ChessPage() {
 
 	return (
-		<div id="board_container">
-			{_.map(useInstanceKeys(), instanceID => (
-				<div id={instanceID}>
-					<ChessBoardComponent instanceID={instanceID} />
-					<ExpandableListComponent instanceID={instanceID} />
-				</div>
+		<main>
+			{_.map(useInstanceKeys(), instanceKey => (
+				<section id={instanceKey}>
+					<ChessBoardComponent instanceKey={instanceKey} />
+					<ExpandableListComponent instanceKey={instanceKey} />
+				</section>
 			))}
-		</div>
+		</main>
 	);
 }

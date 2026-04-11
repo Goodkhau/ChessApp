@@ -24,16 +24,18 @@ interface State {
 }
 
 interface Actions {
-	hasInstance: (id: string) => boolean;
-	createInstance: (id: string, details: ChessDetails) => void;
-	deleteInstance: (id: string) => void;
-	getInstanceChessEngine: (id: string) => Chess;
-	getInstancePredictionList: (id: string) => Prediction[];
-	setInstancePredictionList: (id: string, list: Prediction[]) => void;
+	actions: {
+		hasInstance: (id: string) => boolean;
+		createInstance: (id: string, details: ChessDetails) => void;
+		deleteInstance: (id: string) => void;
+		getInstanceChessEngine: (id: string) => Chess;
+		getInstancePredictionList: (id: string) => Prediction[];
+		setInstancePredictionList: (id: string, list: Prediction[]) => void;
+	}
 }
 
 
-const useChessStore = create<State & {actions: Actions}>()((set, get) => ({
+const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	instances: {
 		board_00: {

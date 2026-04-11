@@ -1,10 +1,19 @@
 from fastapi import FastAPI, HTTPException, status, Query, Request
+from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from typing import Annotated
 
 from Models.index import ModelEnum
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/api/model/{ModelName}")
 async def model_response(request: Request, ModelName: str, san: list[str] = [], fen: str = ''):
