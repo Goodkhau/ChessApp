@@ -28,8 +28,6 @@ interface Actions {
 		hasInstance: (id: string) => boolean;
 		createInstance: (id: string, details: ChessDetails) => void;
 		deleteInstance: (id: string) => void;
-		getInstanceChessEngine: (id: string) => Chess;
-		getInstancePredictionList: (id: string) => Prediction[];
 		setInstancePredictionList: (id: string, list: Prediction[]) => void;
 	}
 }
@@ -65,16 +63,12 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 				instances: rest,
 			};
 		}),
-
-		getInstanceChessEngine: (id) => { return get().instances[id].chessEngine; },
-
-		getInstancePredictionList: (id) => { return get().instances[id].predictions; },
+		
 		setInstancePredictionList: (id, list) => set((state) => ({
-			length: state.length,
 			instances: {
 				...state.instances,
 				[id]: {
-					chessEngine: state.instances[id].chessEngine,
+					...state.instances[id],
 					predictions: list,
 				},
 			},
@@ -84,10 +78,10 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 
 const useChessStoreActions = () => useChessStore((state) => state.actions);
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
-
+const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
+const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
 
 export {
-	useChessStoreActions,
-	useInstanceKeys
+	useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePredictionList
 };
 
