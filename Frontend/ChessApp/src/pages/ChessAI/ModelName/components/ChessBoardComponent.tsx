@@ -138,5 +138,7 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 		id: 'click-or-drag-to-move',
 	};
 
-	return <Chessboard options={chessboardOptions} />;
+	return (
+		<Chessboard options={chessboardOptions} />
+	);
 }
