@@ -16,6 +16,8 @@ const routes = [
 
 export default function App() {
 	return (
-		<RouterProvider router={createBrowserRouter(routes)} />
+		<main className="flex flex-col items-center pt-20 h-min-screen">
+			<RouterProvider router={createBrowserRouter(routes)} />
+		</main>
 	);
 }
