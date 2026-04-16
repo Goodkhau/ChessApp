@@ -36,8 +36,6 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 
 		const filteredList = _.filter(newPredictionList, ({ weight }) => { return weight >= randomZeroToMax; } );
 		const mv = filteredList[Math.floor(Math.random() * filteredList.length)];
-		console.log(filteredList);
-		console.log(mv);
 		chessEngine.move(mv.move);
 		setChessPosition(chessEngine.fen());
 	}
