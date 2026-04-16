@@ -56,9 +56,7 @@ const pseudoSanMove = ({
 				weightedMoves.push({ weight: rating, move });
 		});
 	});
-
 	
-
 	return _.uniqBy(_.orderBy(weightedMoves, 'weight', 'desc'), 'move');
 };
 
