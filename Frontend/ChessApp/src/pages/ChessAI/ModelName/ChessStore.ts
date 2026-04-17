@@ -2,6 +2,11 @@ import { Chess } from "chess.js";
 import { create } from "zustand";
 import { useShallow } from "zustand/shallow";
 
+const ListState = {
+	Closed: 'Closed',
+	Scroll: 'Scroll',
+	Full: 'Full',
+} as const;
 
 interface Prediction {
     id?: number;
@@ -12,6 +17,8 @@ interface Prediction {
 
 interface ChessDetails {
 	modelName?: string;
+	listState: keyof typeof ListState;
+	isWhite: boolean;
 	chessEngine: Chess;
 	predictions: Prediction[];
 }
@@ -37,6 +44,8 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	instances: {
 		board_00: {
+			listState: ListState.Scroll,
+			isWhite: true,
 			chessEngine: new Chess(),
 			predictions: [],
 		},
@@ -81,7 +90,5 @@ const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(st
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
 
-export {
-	useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePredictionList
-};
+export { ListState, useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePredictionList };
 
