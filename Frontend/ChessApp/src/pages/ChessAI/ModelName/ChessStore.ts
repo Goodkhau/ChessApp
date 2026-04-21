@@ -49,6 +49,24 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 			chessEngine: new Chess(),
 			predictions: [],
 		},
+		board_01: {
+			listState: ListState.Scroll,
+			isWhite: true,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+		board_02: {
+			listState: ListState.Scroll,
+			isWhite: true,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+		board_03: {
+			listState: ListState.Scroll,
+			isWhite: true,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
 	},
 
 	actions: {
@@ -89,6 +107,8 @@ const useChessStoreActions = () => useChessStore((state) => state.actions);
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
+const useInstanceListState = (id: string) => useChessStore((state) => state.instances[id].listState);
+const useInstanceStart = (id: string) => useChessStore((state) => state.instances[id].isWhite);
 
-export { ListState, useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePredictionList };
+export { ListState, useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstanceListState, useInstancePredictionList, useInstanceStart };
 
