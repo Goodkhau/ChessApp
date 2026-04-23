@@ -2,17 +2,21 @@ import _ from "lodash";
 
 import { useState } from "react";
 import { useInstancePredictionList } from "../ChessStore";
+import { CloseIcon, OpenIcon } from "./icons/OpenCloseIcon";
 
 export default function ExpandableListComponent({ instanceKey }: { instanceKey: string }) {
 	const [isOpen, setIsOpen] = useState(false);
 	const predictionList = useInstancePredictionList(instanceKey);
 
 	return (
-		<article className="h-10 w-full bg-blue-800/10 rounded-xl">
-			<hgroup className="h-8 py-5" onClick={() => setIsOpen(!isOpen)}>Header</hgroup>
-			<article className={`relative z-10 bg-gray-800/85 border-gray-700 rounded-xl
-				transition-all duration-300 ease-linear overflow-y-scroll
-				${isOpen ? `max-h-100 ${predictionList.length ? 'border-3' : ''}` : 'max-h-0 border-0'}
+		<article className="h-10 w-full rounded-xl">
+			<hgroup className="flex flex-col items-center justify-center h-6 my-2 bg-blue-800/10 border-3 rounded-xl border-yellow-200/40"
+				onClick={() => setIsOpen(!isOpen)}>
+				{isOpen ? OpenIcon : CloseIcon}
+			</hgroup>
+			<article className={`relative z-10 mt-4 overflow-y-scroll rounded-xl border-gray-700 bg-gray-800/85 border-3
+				transition-all duration-500 ease-out
+				${isOpen ? 'h-100' : 'h-0 opacity-0'}
 			`}>
 				{_.map(predictionList, prediction => (
 					<article className="flex flex-row items-center m-2 px-2 bg-teal-800/20 hover:bg-teal-600/20 rounded-xl">
