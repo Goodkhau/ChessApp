@@ -96,7 +96,7 @@ const useChessStoreActions = () => useChessStore((state) => state.actions);
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
-const useInstanceStart = (id: string) => useChessStore((state) => state.instances[id].isWhite);
+const useInstancePlayerColor = (id: string) => useChessStore((state) => state.instances[id].isWhite);
 
-export { useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePredictionList, useInstanceStart };
+export { useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePlayerColor, useInstancePredictionList };
 

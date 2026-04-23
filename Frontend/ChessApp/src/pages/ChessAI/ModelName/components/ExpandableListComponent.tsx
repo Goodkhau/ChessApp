@@ -19,7 +19,7 @@ export default function ExpandableListComponent({ instanceKey }: { instanceKey: 
 				${isOpen ? 'h-100' : 'h-0 opacity-0'}
 			`}>
 				{_.map(predictionList, prediction => (
-					<article className="flex flex-row items-center m-2 px-2 bg-teal-800/20 hover:bg-teal-600/20 rounded-xl">
+					<article key={prediction.move} className="flex flex-row items-center m-2 px-2 bg-teal-800/20 hover:bg-teal-600/20 rounded-xl">
 						<h2 className="w-2/15 p-0.5 text-1xl text-gray-400">{prediction.move}</h2>
 						<div className="w-full">
 							<div className="h-2 bg-green-500 rounded-xl" style={{ width: `${(100 * prediction.weight).toFixed(2)}%` }}></div>
