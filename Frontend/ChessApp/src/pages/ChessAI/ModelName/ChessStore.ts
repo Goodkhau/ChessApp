@@ -2,7 +2,6 @@ import { Chess } from "chess.js";
 import { create } from "zustand";
 import { useShallow } from "zustand/shallow";
 
-
 interface Prediction {
     id?: number;
     move: string;
@@ -12,6 +11,7 @@ interface Prediction {
 
 interface ChessDetails {
 	modelName?: string;
+	isWhite: boolean;
 	chessEngine: Chess;
 	predictions: Prediction[];
 }
@@ -37,6 +37,22 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	instances: {
 		board_00: {
+			isWhite: true,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+		board_01: {
+			isWhite: true,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+		board_02: {
+			isWhite: true,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+		board_03: {
+			isWhite: true,
 			chessEngine: new Chess(),
 			predictions: [],
 		},
@@ -80,8 +96,7 @@ const useChessStoreActions = () => useChessStore((state) => state.actions);
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
+const useInstancePlayerColor = (id: string) => useChessStore((state) => state.instances[id].isWhite);
 
-export {
-	useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePredictionList
-};
+export { useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePlayerColor, useInstancePredictionList };
 
