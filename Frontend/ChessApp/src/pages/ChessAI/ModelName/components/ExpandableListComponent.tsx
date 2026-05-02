@@ -1,6 +1,6 @@
 import _ from "lodash";
-
 import { useState } from "react";
+
 import { useInstancePredictionList } from "../ChessStore";
 import { CloseIcon, OpenIcon } from "./icons/OpenCloseIcon";
 

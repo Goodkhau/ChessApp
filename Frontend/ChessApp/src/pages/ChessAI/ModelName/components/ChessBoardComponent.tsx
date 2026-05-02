@@ -137,6 +137,8 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 	};
 
 	return (
-		<Chessboard options={chessboardOptions} />
+		<div className="aspect-square">
+			<Chessboard options={chessboardOptions} />
+		</div>
 	);
 }
