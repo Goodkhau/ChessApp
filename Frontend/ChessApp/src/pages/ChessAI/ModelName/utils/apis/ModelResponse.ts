@@ -67,6 +67,7 @@ class ModelResponseHandler {
 }
 
 export {
-	ModelResponseHandler, type PredictionSet
+	ModelResponseHandler,
+	type PredictionSet
 };
 

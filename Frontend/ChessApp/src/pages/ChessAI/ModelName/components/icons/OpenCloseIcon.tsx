@@ -35,5 +35,6 @@ const CloseIcon = (
 );
 
 export {
-	CloseIcon, OpenIcon
+	CloseIcon,
+	OpenIcon
 };

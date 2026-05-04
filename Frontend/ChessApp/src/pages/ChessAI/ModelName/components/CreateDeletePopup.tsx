@@ -1,9 +1,9 @@
-export default function CreateDeletePopup({ showCreateBoard, onClose, children }: {
-	showCreateBoard: boolean;
+export default function CreateDeletePopup({ showForm, onClose, children }: {
+	showForm: boolean;
 	onClose: () => void;
 	children: React.ReactNode;
 }) {
-	if (!showCreateBoard) return null;
+	if (!showForm) return null;
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center">
 			<div 
@@ -11,7 +11,7 @@ export default function CreateDeletePopup({ showCreateBoard, onClose, children }
 				onClick={onClose}
 			/>
 
-			<div className="relative z-10 bg-white rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
+			<div className="relative z-10 bg-slate-900 rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
 				{children}
 			</div>
 		</div>
