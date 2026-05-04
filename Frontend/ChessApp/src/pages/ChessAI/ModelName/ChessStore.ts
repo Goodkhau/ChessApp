@@ -11,6 +11,7 @@ interface Prediction {
 
 interface ChessDetails {
 	modelName?: string;
+	boardOrientation: "white" | "black";
 	isWhite: boolean;
 	chessEngine: Chess;
 	predictions: Prediction[];
@@ -26,7 +27,7 @@ interface State {
 interface Actions {
 	actions: {
 		hasInstance: (id: string) => boolean;
-		createInstance: (id: string, details: ChessDetails) => void;
+		createInstance: (id: string, isWhite: boolean) => void;
 		deleteInstance: (id: string) => void;
 		setInstancePredictionList: (id: string, list: Prediction[]) => void;
 	}
@@ -37,21 +38,7 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	instances: {
 		board_00: {
-			isWhite: true,
-			chessEngine: new Chess(),
-			predictions: [],
-		},
-		board_01: {
-			isWhite: true,
-			chessEngine: new Chess(),
-			predictions: [],
-		},
-		board_02: {
-			isWhite: true,
-			chessEngine: new Chess(),
-			predictions: [],
-		},
-		board_03: {
+			boardOrientation: 'black',
 			isWhite: true,
 			chessEngine: new Chess(),
 			predictions: [],
@@ -63,13 +50,22 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 			return get().instances[id] !== undefined;
 		},
 
-		createInstance: (id, details) => set((state) => ({
-			length: state.length++,
-			instances: {
-				...state.instances,
-				[id]: details,
-			},
-		})),
+		createInstance: (id, isWhite) => set((state) => {
+			const chessEngine = new Chess();
+			const predictions: Prediction[] = [];
+			return {
+				length: state.length++,
+				instances: {
+					...state.instances,
+					[id]: {
+						boardOrientation: isWhite ? "white" : "black",
+						isWhite,
+						chessEngine,
+						predictions,
+					},
+				},
+			};
+		}),
 
 		deleteInstance: (id) => set((state) => {
 			const { [id]: removed, ...rest } = state.instances;
@@ -94,9 +90,11 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 
 const useChessStoreActions = () => useChessStore((state) => state.actions);
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
+
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
 const useInstancePlayerColor = (id: string) => useChessStore((state) => state.instances[id].isWhite);
+const useInstanceBoardOrientation = (id: string) => useChessStore((state) => state.instances[id].boardOrientation);
 
-export { useChessStoreActions, useInstanceChessEngine, useInstanceKeys, useInstancePlayerColor, useInstancePredictionList };
+export { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine, useInstanceKeys, useInstancePlayerColor, useInstancePredictionList };
 
