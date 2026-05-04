@@ -1,4 +1,5 @@
-import { useChessStoreActions } from "../ChessStore.ts";
+import { Chess } from "chess.js";
+import { useChessStoreActions, type ChessDetails, type Prediction } from "../ChessStore.ts";
 
 const CHESS_MODELS = [
 	{ id: 'stockfish-16', name: 'Stockfish 16', difficulty: 'Expert' },
@@ -10,13 +11,31 @@ const CHESS_MODELS = [
 ];
 
 export default function CreateForm() {
-	const { setShowCreateForm } = useChessStoreActions();
+	const { setShowCreateForm, createInstance } = useChessStoreActions();
 	async function handleCreation(event: React.SubmitEvent<HTMLFormElement>) {
 		// Get whether black or white, get the first move if black and we should have everything for creating an instance.
 		event.preventDefault();
 		console.log("Creating game");
 
+		const formData = new FormData(event.currentTarget);
+		const id = String(formData.get("boardName"));
+		const modelName = String(formData.get("chessModel"));
+		const boardOrientation = String(formData.get("playerColor")) === "white" ? "white" : "black";
+		const isWhite = boardOrientation === "white";
+		const chessEngine = new Chess();
+		const predictions: Prediction[] = [];
+
+		const details: ChessDetails = {
+			modelName,
+			boardOrientation,
+			isWhite,
+			chessEngine,
+			predictions,
+		};
+
+		createInstance(id, details);
 		setShowCreateForm(false);
+		event.currentTarget.reset();
 	}
     
 	return (
@@ -26,6 +45,7 @@ export default function CreateForm() {
 			<input
 				type="text"
 				id="board-name"
+				name="boardName"
 				placeholder="My Chess Game"
 				required
 				className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -78,7 +98,7 @@ export default function CreateForm() {
 				type="submit"
 				className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium"
 			>
-        				Create Game
+        		Create Game
 			</button>
 		</form>
 	);

@@ -106,5 +106,8 @@ export {
 	useInstanceKeys,
 	useInstancePlayerColor,
 	useInstancePredictionList,
-	useShowCreateForm
+	useShowCreateForm,
+	type ChessDetails,
+	type Prediction
 };
+
