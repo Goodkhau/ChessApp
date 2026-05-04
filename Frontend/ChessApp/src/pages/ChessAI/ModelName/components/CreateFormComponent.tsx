@@ -1,5 +1,6 @@
 import { Chess } from "chess.js";
 import { useChessStoreActions, type ChessDetails, type Prediction } from "../ChessStore.ts";
+import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 const CHESS_MODELS = [
 	{ id: 'stockfish-16', name: 'Stockfish 16', difficulty: 'Expert' },
@@ -12,8 +13,8 @@ const CHESS_MODELS = [
 
 export default function CreateForm() {
 	const { setShowCreateForm, createInstance } = useChessStoreActions();
+	
 	async function handleCreation(event: React.SubmitEvent<HTMLFormElement>) {
-		// Get whether black or white, get the first move if black and we should have everything for creating an instance.
 		event.preventDefault();
 		console.log("Creating game");
 
@@ -23,7 +24,17 @@ export default function CreateForm() {
 		const boardOrientation = String(formData.get("playerColor")) === "white" ? "white" : "black";
 		const isWhite = boardOrientation === "white";
 		const chessEngine = new Chess();
-		const predictions: Prediction[] = [];
+		let predictions: Prediction[] = [];
+
+		if (!isWhite) {
+			const handler = new ModelResponseHandler();
+			const {
+				selectedMove,
+				newPredictionList,
+			} = await handler.getParsedResponse({ chessGame: chessEngine, modelName });
+			chessEngine.move(selectedMove.move);
+			predictions = newPredictionList;
+		}
 
 		const details: ChessDetails = {
 			modelName,
