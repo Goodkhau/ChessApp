@@ -31,6 +31,7 @@ export default defineConfig([
 				objects: "always-multiline",
 				imports: "always-multiline",
 				functions: "always-multiline",
+				exports: "never",
 			}],
 			// Tab-based indentation
 			"indent": "off", // Turn off base rule
