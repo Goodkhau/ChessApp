@@ -20,6 +20,7 @@ interface ChessDetails {
 interface State {
 	length: number;
 	showCreateForm: boolean;
+	showDeleteForm: boolean;
 	instances: {
 		[id: string]: ChessDetails;
 	}
@@ -32,6 +33,7 @@ interface Actions {
 		deleteInstance: (id: string) => void;
 		setInstancePredictionList: (id: string, list: Prediction[]) => void;
 		setShowCreateForm: (show: boolean) => void;
+		setShowDeleteForm: (show: boolean) => void;
 	}
 }
 
@@ -39,6 +41,7 @@ interface Actions {
 const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	showCreateForm: true,
+	showDeleteForm: false,
 	instances: {
 		board_00: {
 			modelName: 'little_blue',
@@ -86,6 +89,10 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 		setShowCreateForm: (show) => set(() => ({
 			showCreateForm: show,
 		})),
+
+		setShowDeleteForm: (show) => set(() => ({
+			showDeleteForm: show,
+		})),
 	},
 }));
 
@@ -93,6 +100,7 @@ const useChessStoreActions = () => useChessStore((state) => state.actions);
 
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
 const useShowCreateForm = () => useChessStore((state) => state.showCreateForm);
+const useShowDeleteForm = () => useChessStore((state) => state.showDeleteForm);
 
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
@@ -107,6 +115,7 @@ export {
 	useInstancePlayerColor,
 	useInstancePredictionList,
 	useShowCreateForm,
+	useShowDeleteForm,
 	type ChessDetails,
 	type Prediction
 };

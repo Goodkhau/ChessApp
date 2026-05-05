@@ -3,12 +3,7 @@ import { useChessStoreActions, type ChessDetails, type Prediction } from "../Che
 import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 const CHESS_MODELS = [
-	{ id: 'stockfish-16', name: 'Stockfish 16', difficulty: 'Expert' },
-	{ id: 'stockfish-15', name: 'Stockfish 15', difficulty: 'Advanced' },
-	{ id: 'komodo-14', name: 'Komodo 14', difficulty: 'Advanced' },
-	{ id: 'leela-chess', name: 'Leela Chess Zero', difficulty: 'Expert' },
-	{ id: 'fairy-stockfish', name: 'Fairy Stockfish', difficulty: 'Intermediate' },
-	{ id: 'beginner-bot', name: 'Beginner Bot', difficulty: 'Beginner' },
+	{ id: 'Little_Blue', name: 'Little_Blue' },
 ];
 
 export default function CreateForm() {
@@ -87,7 +82,7 @@ export default function CreateForm() {
 					/>
 					<span className="flex items-center gap-2">
 						<span className="w-6 h-6 bg-black rounded"></span>
-								Black
+						Black
 					</span>
 				</label>
 			</div>
@@ -98,10 +93,10 @@ export default function CreateForm() {
 				required
 				className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 			>
-				<option value="">Select a chess engine...</option>
+				<option value="">Select a chess ML model...</option>
 				{CHESS_MODELS.map(model => (
 					<option key={model.id} value={model.id}>
-						{model.name} ({model.difficulty})
+						{model.name}
 					</option>
 				))}
 			</select>
