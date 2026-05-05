@@ -8,6 +8,7 @@ import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 export default function ChessBoardComponent({ instanceKey }: {instanceKey: string}) {
 	const { setInstancePredictionList } = useChessStoreActions();
+	
 	const chessEngine = useInstanceChessEngine(instanceKey);
 	const modelName = useInstanceModelName(instanceKey);
 	const boardOrientation = useInstanceBoardOrientation(instanceKey);

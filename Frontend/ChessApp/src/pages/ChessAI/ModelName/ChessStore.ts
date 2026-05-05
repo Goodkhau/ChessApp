@@ -29,7 +29,7 @@ interface State {
 interface Actions {
 	actions: {
 		hasInstance: (id: string) => boolean;
-		createInstance: (id: string, details: ChessDetails) => void;
+		createInstance: ({ id, details } : {id: string, details: ChessDetails}) => void;
 		deleteInstance: (id: string) => void;
 		setInstancePredictionList: (id: string, list: Prediction[]) => void;
 		setShowCreateForm: (show: boolean) => void;
@@ -48,7 +48,7 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 			return get().instances[id] !== undefined;
 		},
 
-		createInstance: (id, details) => set((state) => {
+		createInstance: ({ id, details }) => set((state) => {
 			return {
 				length: state.length + 1,
 				instances: {

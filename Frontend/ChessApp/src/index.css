@@ -7,3 +7,12 @@ html {
 body {
   @apply bg-linear-to-b from-slate-900 via-gray-800/30 to-slate-900;
 }
+
+:root {
+  h2 {
+    @apply text-2xl;
+  }
+  label {
+    @apply text-sm
+  }
+}

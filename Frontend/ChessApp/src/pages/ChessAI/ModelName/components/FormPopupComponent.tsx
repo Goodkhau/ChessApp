@@ -11,7 +11,7 @@ export default function CreateDeletePopup({ showForm, onClose, children }: {
 				onClick={onClose}
 			/>
 
-			<div className="relative z-10 bg-slate-900 rounded-lg shadow-xl p-6 max-w-md w-full mx-4">
+			<div className="relative z-10 bg-slate-900 rounded-2xl p-6 mx-4">
 				{children}
 			</div>
 		</div>
