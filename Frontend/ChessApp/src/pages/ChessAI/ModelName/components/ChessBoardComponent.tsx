@@ -8,7 +8,7 @@ import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 export default function ChessBoardComponent({ instanceKey }: {instanceKey: string}) {
 	const { setInstancePredictionList } = useChessStoreActions();
-	
+
 	const chessEngine = useInstanceChessEngine(instanceKey);
 	const modelName = useInstanceModelName(instanceKey);
 	const boardOrientation = useInstanceBoardOrientation(instanceKey);
@@ -32,6 +32,8 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 		setInstancePredictionList(instanceKey, newPredictionList);
 		chessEngine.move(selectedMove.move);
 		setChessPosition(chessEngine.fen());
+		setMoveFrom('');
+		setOptionSquares({});
 	}
 
 	/*
@@ -84,11 +86,8 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 
 		try {
 			chessEngine.move({ from: moveFrom, to: square, promotion: 'q' }); //Promotion needs to be implemented
-
 			setChessPosition(chessEngine.fen());
-			setMoveFrom('');
-			setOptionSquares({});
-			setTimeout(moveAI, 10000);
+			moveAI();
 		} catch {
 			if (hasMoveOption(square as Square)) {
 				setMoveFrom(square);
@@ -112,9 +111,7 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 			});
 
 			setChessPosition(chessEngine.fen());
-			setMoveFrom('');
-			setOptionSquares({});
-			setTimeout(moveAI, 10000);
+			moveAI();
 
 			return true;
 		} catch {

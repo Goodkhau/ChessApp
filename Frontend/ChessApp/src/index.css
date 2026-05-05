@@ -9,7 +9,7 @@ body {
 }
 
 :root {
-  h2 {
+  h3 {
     @apply text-2xl;
   }
   label {

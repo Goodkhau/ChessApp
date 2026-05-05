@@ -48,7 +48,7 @@ export default function CreateForm() {
     
 	return (
 		<form onSubmit={handleCreation} className="space-y-4 p-6 bg-slate-800 rounded-2xl">
-			<h2 className="text-gray-400 font-bold mb-4">Create New Chess Game</h2>
+			<h3 className="text-gray-400 font-bold mb-4">Create New Chess Game</h3>
 
 			<label htmlFor="board-name" className="text-gray-400 font-medium mb-1">Board Name</label>
 			<input
