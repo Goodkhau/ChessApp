@@ -2,16 +2,14 @@ import { Square } from "chess.js";
 import _ from "lodash";
 import { useState } from "react";
 import { Chessboard, PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
-import { useParams } from "react-router-dom";
 
-import { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine } from "../ChessStore";
+import { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine, useInstanceModelName } from "../ChessStore";
 import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 export default function ChessBoardComponent({ instanceKey }: {instanceKey: string}) {
-	const { modelName } = useParams();
-
 	const { setInstancePredictionList } = useChessStoreActions();
 	const chessEngine = useInstanceChessEngine(instanceKey);
+	const modelName = useInstanceModelName(instanceKey);
 	const boardOrientation = useInstanceBoardOrientation(instanceKey);
 
 	const [chessPosition, setChessPosition] = useState(chessEngine.fen());

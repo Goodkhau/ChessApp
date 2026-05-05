@@ -10,7 +10,7 @@ interface Prediction {
 }
 
 interface ChessDetails {
-	modelName?: string;
+	modelName: string;
 	boardOrientation: "white" | "black";
 	showDeleteForm: boolean;
 	isWhite: boolean;
@@ -112,17 +112,16 @@ const useInstancePredictionList = (id: string) => useChessStore((state) => state
 const useInstancePlayerColor = (id: string) => useChessStore((state) => state.instances[id].isWhite);
 const useInstanceBoardOrientation = (id: string) => useChessStore((state) => state.instances[id].boardOrientation);
 const useShowDeleteForm = (id: string) => useChessStore((state) => state.instances[id].showDeleteForm);
+const useInstanceModelName = (id: string) => useChessStore((state) => state.instances[id].modelName);
 
 export {
 	useChessStoreActions,
 	useInstanceBoardOrientation,
 	useInstanceChessEngine,
-	useInstanceKeys,
-	useInstancePlayerColor,
+	useInstanceKeys, useInstanceModelName, useInstancePlayerColor,
 	useInstancePredictionList,
 	useShowCreateForm,
-	useShowDeleteForm,
-	type ChessDetails,
+	useShowDeleteForm, type ChessDetails,
 	type Prediction
 };
 
