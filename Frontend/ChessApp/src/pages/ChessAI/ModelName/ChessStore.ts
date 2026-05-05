@@ -41,16 +41,7 @@ interface Actions {
 const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	showCreateForm: true,
-	instances: {
-		board_00: {
-			modelName: 'little_blue',
-			boardOrientation: 'black',
-			showDeleteForm: false,
-			isWhite: true,
-			chessEngine: new Chess(),
-			predictions: [],
-		},
-	},
+	instances: {},
 
 	actions: {
 		hasInstance: (id) => {
@@ -121,7 +112,8 @@ export {
 	useInstanceKeys, useInstanceModelName, useInstancePlayerColor,
 	useInstancePredictionList,
 	useShowCreateForm,
-	useShowDeleteForm, type ChessDetails,
+	useShowDeleteForm,
+	type ChessDetails,
 	type Prediction
 };
 
