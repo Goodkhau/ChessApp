@@ -34,6 +34,7 @@ export default function CreateForm() {
 		const details: ChessDetails = {
 			modelName,
 			boardOrientation,
+			showDeleteForm: false,
 			isWhite,
 			chessEngine,
 			predictions,

@@ -14,7 +14,7 @@ export default function DeleteForm ({ instanceKey }: { instanceKey: string }) {
 			<p className="text-gray-600 mb-6">This action cannot be undone.</p>
 			<div className="flex gap-3 justify-end">
 				<button
-					onClick={() => setShowDeleteForm(false)}
+					onClick={() => setShowDeleteForm(instanceKey, false)}
 					className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
 				>
                         Cancel

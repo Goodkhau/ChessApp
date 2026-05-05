@@ -12,6 +12,7 @@ interface Prediction {
 interface ChessDetails {
 	modelName?: string;
 	boardOrientation: "white" | "black";
+	showDeleteForm: boolean;
 	isWhite: boolean;
 	chessEngine: Chess;
 	predictions: Prediction[];
@@ -20,7 +21,6 @@ interface ChessDetails {
 interface State {
 	length: number;
 	showCreateForm: boolean;
-	showDeleteForm: boolean;
 	instances: {
 		[id: string]: ChessDetails;
 	}
@@ -33,7 +33,7 @@ interface Actions {
 		deleteInstance: (id: string) => void;
 		setInstancePredictionList: (id: string, list: Prediction[]) => void;
 		setShowCreateForm: (show: boolean) => void;
-		setShowDeleteForm: (show: boolean) => void;
+		setShowDeleteForm: (id: string, show: boolean) => void;
 	}
 }
 
@@ -41,11 +41,11 @@ interface Actions {
 const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	showCreateForm: true,
-	showDeleteForm: false,
 	instances: {
 		board_00: {
 			modelName: 'little_blue',
 			boardOrientation: 'black',
+			showDeleteForm: false,
 			isWhite: true,
 			chessEngine: new Chess(),
 			predictions: [],
@@ -90,8 +90,14 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 			showCreateForm: show,
 		})),
 
-		setShowDeleteForm: (show) => set(() => ({
-			showDeleteForm: show,
+		setShowDeleteForm: (id, show) => set((state) => ({
+			instances: {
+				...state.instances,
+				[id]: {
+					...state.instances[id],
+					showDeleteForm: show,
+				},
+			},
 		})),
 	},
 }));
@@ -100,12 +106,12 @@ const useChessStoreActions = () => useChessStore((state) => state.actions);
 
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
 const useShowCreateForm = () => useChessStore((state) => state.showCreateForm);
-const useShowDeleteForm = () => useChessStore((state) => state.showDeleteForm);
 
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
 const useInstancePlayerColor = (id: string) => useChessStore((state) => state.instances[id].isWhite);
 const useInstanceBoardOrientation = (id: string) => useChessStore((state) => state.instances[id].boardOrientation);
+const useShowDeleteForm = (id: string) => useChessStore((state) => state.instances[id].showDeleteForm);
 
 export {
 	useChessStoreActions,

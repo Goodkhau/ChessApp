@@ -6,7 +6,7 @@ import { XIcon } from './icons/XIcon.tsx';
 
 export default function InstanceHeader({ instanceKey }: {instanceKey: string}) {
 	const { setShowDeleteForm } = useChessStoreActions();
-	const showDeleteForm = useShowDeleteForm();
+	const showDeleteForm = useShowDeleteForm(instanceKey);
 	
 	return (
 		<>
@@ -16,13 +16,13 @@ export default function InstanceHeader({ instanceKey }: {instanceKey: string}) {
 				</div>
 				<div className="flex flex-row gap-2 items-center">
 					{DotsIcon({ size: 24 })}
-					<div onClick={() => setShowDeleteForm(true) }>
+					<div onClick={() => setShowDeleteForm(instanceKey, true) }>
 						{XIcon({ size: 24 })}
 					</div>
 				</div>
 			</hgroup>
 
-			<CreateDeletePopup showForm={showDeleteForm} onClose={() => setShowDeleteForm(false)}>
+			<CreateDeletePopup showForm={showDeleteForm} onClose={() => setShowDeleteForm(instanceKey, false)}>
 				<DeleteForm instanceKey={instanceKey} />
 			</CreateDeletePopup>
 		</>
