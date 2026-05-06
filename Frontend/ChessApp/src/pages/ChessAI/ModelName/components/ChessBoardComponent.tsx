@@ -2,17 +2,16 @@ import { Square } from "chess.js";
 import _ from "lodash";
 import { useState } from "react";
 import { Chessboard, PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
-import { useParams } from "react-router-dom";
 
-import { useChessStoreActions, useInstanceChessEngine } from "../ChessStore";
-import { getModelResponse } from "../utils/apis/ModelResponse.ts";
-import { ModelResponseParser } from "../utils/ModelResponseParser.ts";
+import { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine, useInstanceModelName } from "../ChessStore";
+import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 export default function ChessBoardComponent({ instanceKey }: {instanceKey: string}) {
-	const { modelName } = useParams();
-
 	const { setInstancePredictionList } = useChessStoreActions();
+
 	const chessEngine = useInstanceChessEngine(instanceKey);
+	const modelName = useInstanceModelName(instanceKey);
+	const boardOrientation = useInstanceBoardOrientation(instanceKey);
 
 	const [chessPosition, setChessPosition] = useState(chessEngine.fen());
 	const [optionSquares, setOptionSquares] = useState({});
@@ -24,20 +23,17 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 			return;
 		}
 
-		const history = _.map(chessEngine.history({ verbose: true }), move => move.san);
-		const parser = new ModelResponseParser( await getModelResponse({ modelName: modelName ?? "Little_Blue", sans: history }) );
-
-		const possibleMoves = _.map(chessEngine.moves({ verbose: true }), move => move.san );
-		const newPredictionList = parser.getParsedResponse(possibleMoves);
+		const handler = new ModelResponseHandler();
+		const {
+			newPredictionList,
+			selectedMove,
+		} = await handler.getParsedResponse({ chessGame: chessEngine, modelName });
+		
 		setInstancePredictionList(instanceKey, newPredictionList);
-
-		const max = _.maxBy(newPredictionList, "weight");
-		const randomZeroToMax = Math.random() * (max?.weight ?? 1);
-
-		const filteredList = _.filter(newPredictionList, ({ weight }) => { return weight >= randomZeroToMax; } );
-		const mv = filteredList[Math.floor(Math.random() * filteredList.length)];
-		chessEngine.move(mv.move);
+		chessEngine.move(selectedMove.move);
 		setChessPosition(chessEngine.fen());
+		setMoveFrom('');
+		setOptionSquares({});
 	}
 
 	/*
@@ -90,11 +86,8 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 
 		try {
 			chessEngine.move({ from: moveFrom, to: square, promotion: 'q' }); //Promotion needs to be implemented
-
 			setChessPosition(chessEngine.fen());
-			setMoveFrom('');
-			setOptionSquares({});
-			setTimeout(moveAI, 10000);
+			moveAI();
 		} catch {
 			if (hasMoveOption(square as Square)) {
 				setMoveFrom(square);
@@ -118,9 +111,7 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 			});
 
 			setChessPosition(chessEngine.fen());
-			setMoveFrom('');
-			setOptionSquares({});
-			setTimeout(moveAI, 10000);
+			moveAI();
 
 			return true;
 		} catch {
@@ -131,12 +122,15 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 	const chessboardOptions = {
 		onPieceDrop,
 		onSquareClick,
+		boardOrientation,
 		position: chessPosition,
 		squareStyles: optionSquares,
 		id: 'click-or-drag-to-move',
 	};
 
 	return (
-		<Chessboard options={chessboardOptions} />
+		<div className="aspect-square">
+			<Chessboard options={chessboardOptions} />
+		</div>
 	);
 }

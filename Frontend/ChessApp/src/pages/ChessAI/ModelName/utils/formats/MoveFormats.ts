@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import { PredictionSet } from "./apis/ModelResponse";
+import { PredictionSet } from "../apis/ModelResponse.ts";
 
 
 interface MoveParameters {
