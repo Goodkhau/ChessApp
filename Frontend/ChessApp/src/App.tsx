@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from 'framer-motion';
 
 import Navigation from './Navigation.tsx';
-import { useStore } from './Store.ts';
-import ChessPage from './tabs/ChessAI/ModelName/ChessPage.tsx';
+import { Tabs, useCurrentTab } from './Store.ts';
 
-export default function App2() {
-	const currentPage = useStore((state) => state.currentPage);
+export default function App() {
+	const currentTab = useCurrentTab();
+	const TabComponent = Tabs[currentTab];
   
 	const pageVariants = {
 		initial: { opacity: 0, y: 100 },
@@ -18,7 +18,7 @@ export default function App2() {
 			<Navigation />
 			<AnimatePresence mode="wait">
 				<motion.main
-					key={currentPage}
+					key={currentTab}
 					variants={pageVariants}
 					initial="initial"
 					animate="animate"
@@ -26,9 +26,7 @@ export default function App2() {
 					transition={{ duration: 0.2 }}
 				>
 					<div className="py-4">
-						{currentPage === 'home' && <HomePage />}
-						{currentPage === 'dashboard' && <ChessPage />}
-						{currentPage === 'about' && <AboutPage />}
+						<TabComponent />
 					</div>
 				</motion.main>
 			</AnimatePresence>
@@ -36,5 +34,5 @@ export default function App2() {
 	);
 }
 
-function HomePage() {return (<>Home</>);}
-function AboutPage() {return (<>Profile</>);}
+export function HomePage() {return (<>Home</>);}
+export function AboutPage() {return (<>Profile</>);}
