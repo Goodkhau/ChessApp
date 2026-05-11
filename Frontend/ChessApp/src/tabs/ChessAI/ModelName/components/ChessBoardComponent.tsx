@@ -20,6 +20,7 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 
 	async function moveAI(): Promise<void> {
 		if (chessEngine.isGameOver()) {
+			setInstancePredictionList(instanceKey, []);
 			return;
 		}
 

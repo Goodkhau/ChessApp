@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type Page = 'home' | 'dashboard' | 'settings' | 'profile';
+type Page = 'home' | 'dashboard' | 'about';
 
 interface AppState {
   // Your existing store data

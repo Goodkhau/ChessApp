@@ -8,15 +8,14 @@ export default function App2() {
 	const currentPage = useStore((state) => state.currentPage);
   
 	const pageVariants = {
-		initial: { opacity: 0, y: 20 },
+		initial: { opacity: 0, y: 100 },
 		animate: { opacity: 1, y: 0 },
-		exit: { opacity: 0, y: -20 },
+		exit: { opacity: 0, y: -100 },
 	};
   
 	return (
 		<main className="min-h-screen">
 			<Navigation />
-      
 			<AnimatePresence mode="wait">
 				<motion.main
 					key={currentPage}
@@ -26,10 +25,11 @@ export default function App2() {
 					exit="exit"
 					transition={{ duration: 0.2 }}
 				>
-					{currentPage === 'home' && <HomePage />}
-					{currentPage === 'dashboard' && <ChessPage />}
-					{currentPage === 'settings' && <SettingsPage />}
-					{currentPage === 'profile' && <ProfilePage />}
+					<div className="py-4">
+						{currentPage === 'home' && <HomePage />}
+						{currentPage === 'dashboard' && <ChessPage />}
+						{currentPage === 'about' && <AboutPage />}
+					</div>
 				</motion.main>
 			</AnimatePresence>
 		</main>
@@ -37,5 +37,4 @@ export default function App2() {
 }
 
 function HomePage() {return (<>Home</>);}
-function SettingsPage() {return (<>Settings</>);}
-function ProfilePage() {return (<>Profile</>);}
+function AboutPage() {return (<>Profile</>);}
