@@ -2,15 +2,6 @@ import { Chess } from "chess.js";
 import { create } from "zustand";
 import { useShallow } from "zustand/shallow";
 
-import { AboutPage, HomePage } from "./App";
-import ChessPage from "./tabs/ChessAI/ModelName/ChessPage";
-
-const Tabs = {
-	Home: HomePage,
-	Dashboard: ChessPage,
-	About: AboutPage,
-} as const;
-
 interface Prediction {
     id?: number;
     move: string;
@@ -30,7 +21,6 @@ interface ChessDetails {
 interface State {
 	length: number;
 	showCreateForm: boolean;
-	currentTab: keyof typeof Tabs;
 	instances: {
 		[id: string]: ChessDetails;
 	}
@@ -38,7 +28,6 @@ interface State {
 
 interface Actions {
 	actions: {
-		setTab: (name: keyof typeof Tabs) => void;
 		hasInstance: (id: string) => boolean;
 		createInstance: ({ id, details } : {id: string, details: ChessDetails}) => void;
 		deleteInstance: (id: string) => void;
@@ -53,11 +42,8 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
 	showCreateForm: true,
 	instances: {},
-	currentTab: "Home",
 
 	actions: {
-		setTab: (name) => set(() => ({ currentTab: name })),
-
 		hasInstance: (id) => {
 			return get().instances[id] !== undefined;
 		},
@@ -110,7 +96,6 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 const useChessStoreActions = () => useChessStore((state) => state.actions);
 
 const useInstanceKeys = () => useChessStore(useShallow((state) => Object.keys(state.instances)));
-const useCurrentTab = () => useChessStore((state) => state.currentTab);
 const useShowCreateForm = () => useChessStore((state) => state.showCreateForm);
 
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
@@ -121,9 +106,7 @@ const useShowDeleteForm = (id: string) => useChessStore((state) => state.instanc
 const useInstanceModelName = (id: string) => useChessStore((state) => state.instances[id].modelName);
 
 export {
-	Tabs,
 	useChessStoreActions,
-	useCurrentTab,
 	useInstanceBoardOrientation,
 	useInstanceChessEngine,
 	useInstanceKeys, useInstanceModelName, useInstancePlayerColor,

@@ -1,4 +1,4 @@
-import { useChessStoreActions } from "../../../../Store.ts";
+import { useChessStoreActions } from "../../../ChessStore.ts";
 
 export default function DeleteForm ({ instanceKey }: { instanceKey: string }) {
 	const { setShowDeleteForm, deleteInstance } = useChessStoreActions();

@@ -3,7 +3,7 @@ import _ from "lodash";
 import { useState } from "react";
 import { Chessboard, PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
 
-import { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine, useInstanceModelName } from "../../../../Store.ts";
+import { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine, useInstanceModelName } from "../../../ChessStore.ts";
 import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 export default function ChessBoardComponent({ instanceKey }: {instanceKey: string}) {
