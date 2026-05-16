@@ -1,6 +1,8 @@
 import _ from "lodash";
 
-import { useChessStoreActions, useInstanceKeys, useShowCreateForm } from "./ChessStore.ts";
+import { useChessStoreActions, useInstanceKeys, useShowCreateForm } from "../../ChessStore.ts";
+
+
 import ChessBoardComponent from "./components/ChessBoardComponent.tsx";
 import CreateForm from "./components/CreateFormComponent.tsx";
 import ExpandableListComponent from "./components/ExpandableListComponent.tsx";

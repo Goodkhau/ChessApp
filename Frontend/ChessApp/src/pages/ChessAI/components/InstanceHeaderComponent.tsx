@@ -1,4 +1,4 @@
-import { useChessStoreActions, useShowDeleteForm } from "../ChessStore.ts";
+import { useChessStoreActions, useShowDeleteForm } from "../../../ChessStore.ts";
 import DeleteForm from "./DeleteFormComponent.tsx";
 import CreateDeletePopup from "./FormPopupComponent.tsx";
 import { DotsIcon } from './icons/DotsIcon.tsx';
