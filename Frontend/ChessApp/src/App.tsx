@@ -21,7 +21,7 @@ function Layout() {
 	return (
 		<>
 			<Navigation />
-			<AnimatePresence mode="wait">
+			<AnimatePresence mode="sync">
 				<Routes location={location} key={location.pathname}>
 					{_.map(PageKeys, key => 
 						<Route

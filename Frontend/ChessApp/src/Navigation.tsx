@@ -9,7 +9,7 @@ export default function Navigation() {
 	const location = useLocation();
 	return (
 		<div className="flex z-100 sticky top-2 mx-auto justify-center">
-			<nav className="flex border-2 border-gray-800 rounded-full backdrop-blur-sm bg-black/60">
+			<nav  aria-label="Main Navigation" className="flex border-2 border-gray-800 rounded-full backdrop-blur-sm bg-black/60">
 				{_.map(PageKeys, (key) => (
 					<NavLink
 						to={Pages[key].route}
