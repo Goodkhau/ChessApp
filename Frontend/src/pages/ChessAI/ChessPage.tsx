@@ -15,7 +15,7 @@ export default function ChessPage() {
 	const { setShowCreateForm } = useChessStoreActions();
 
 	return (
-		<section className="min-h-screen flex flex-wrap gap-5 justify-center items-center overflow-auto">
+		<section className="min-h-screen py-24 flex flex-wrap gap-5 justify-center items-center overflow-auto">
 			{_.map(useInstanceKeys(), instanceKey => (
 				<div key={instanceKey} className="px-5 border-2 bg-gray-800 rounded-2xl border-yellow-200 
 					flex items-center flex-col

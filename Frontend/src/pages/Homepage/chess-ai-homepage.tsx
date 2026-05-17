@@ -1,6 +1,36 @@
 import { useEffect, useState } from 'react';
 import { Chessboard } from 'react-chessboard';
 
+const stats = [
+	{ value: "2.8M", label: "Games Analyzed" },
+	{ value: "99.4%", label: "Accuracy Rate" },
+	{ value: "3200+", label: "ELO Rating" },
+	{ value: "<0.1s", label: "Move Time" },
+];
+
+const features = [
+	{
+		title: "Neural Network Engine",
+		description: "Advanced deep learning models trained on millions of grandmaster games, capable of evaluating positions with superhuman precision.",
+		icon: "⚡",
+	},
+	{
+		title: "Real-Time Analysis",
+		description: "Instant position evaluation with multi-variation trees, showing the best continuations and tactical opportunities in milliseconds.",
+		icon: "🔍",
+	},
+	{
+		title: "Adaptive Learning",
+		description: "The AI continuously improves by analyzing your playing style, adapting its strategy to exploit weaknesses and challenge strengths.",
+		icon: "🧠",
+	},
+	{
+		title: "Tournament Integration",
+		description: "Seamlessly integrates with major online platforms, providing post-game analysis and opening preparation for competitive players.",
+		icon: "🏆",
+	},
+];
+
 export default function ChessAIHomepage() {
 	const [gamePosition, setGamePosition] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 	const [isVisible, setIsVisible] = useState(false);
@@ -25,36 +55,6 @@ export default function ChessAIHomepage() {
     
 		return () => clearInterval(interval);
 	}, []);
-
-	const stats = [
-		{ value: "2.8M", label: "Games Analyzed" },
-		{ value: "99.4%", label: "Accuracy Rate" },
-		{ value: "3200+", label: "ELO Rating" },
-		{ value: "<0.1s", label: "Move Time" },
-	];
-
-	const features = [
-		{
-			title: "Neural Network Engine",
-			description: "Advanced deep learning models trained on millions of grandmaster games, capable of evaluating positions with superhuman precision.",
-			icon: "⚡",
-		},
-		{
-			title: "Real-Time Analysis",
-			description: "Instant position evaluation with multi-variation trees, showing the best continuations and tactical opportunities in milliseconds.",
-			icon: "🔍",
-		},
-		{
-			title: "Adaptive Learning",
-			description: "The AI continuously improves by analyzing your playing style, adapting its strategy to exploit weaknesses and challenge strengths.",
-			icon: "🧠",
-		},
-		{
-			title: "Tournament Integration",
-			description: "Seamlessly integrates with major online platforms, providing post-game analysis and opening preparation for competitive players.",
-			icon: "🏆",
-		},
-	];
 
 	return (
 		<>

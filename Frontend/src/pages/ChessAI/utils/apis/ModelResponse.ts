@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Chess } from "chess.js";
 import _ from "lodash";
-import { MoveFormatEnum } from "../formats/MoveFormats.ts";
 
+import { MoveFormatEnum } from "../formats/MoveFormats.ts";
 
 interface ErrorResponse {
 	type: "RANDOM",
@@ -51,7 +51,7 @@ class ModelResponseHandler {
 				prediction,
 			},
 		} = await this.getModelResponse({ modelName, sans: chessGame.history() });
-		
+
 		const newPredictionList = MoveFormatEnum[type as keyof typeof MoveFormatEnum]({ possibleMoves: chessGame.moves(), prediction });
 		const max = _.maxBy(newPredictionList, "weight");
 		const randomZeroToMax = Math.random() * (max?.weight ?? 1);
