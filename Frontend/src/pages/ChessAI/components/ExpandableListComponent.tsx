@@ -1,7 +1,7 @@
 import _ from "lodash";
 import { useState } from "react";
 
-import { useInstancePredictionList } from "../../../ChessStore.ts";
+import { useInstancePredictionList } from "../../../stores/ChessStore.ts";
 import { CloseIcon, OpenIcon } from "./icons/OpenCloseIcon";
 
 export default function ExpandableListComponent({ instanceKey }: { instanceKey: string }) {

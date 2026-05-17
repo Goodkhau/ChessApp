@@ -1,6 +1,6 @@
 import { Chess } from "chess.js";
 import _ from "lodash";
-import { useChessStoreActions, type ChessDetails, type Prediction } from "../../../ChessStore.ts";
+import { useChessStoreActions, type ChessDetails, type Prediction } from "../../../stores/ChessStore.ts";
 import { ModelResponseHandler } from "../utils/apis/ModelResponse.ts";
 
 const CHESS_MODELS = [

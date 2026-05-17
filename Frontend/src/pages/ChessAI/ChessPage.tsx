@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import { useChessStoreActions, useInstanceKeys, useShowCreateForm } from "../../ChessStore.ts";
+import { useChessStoreActions, useInstanceKeys, useShowCreateForm } from "../../stores/ChessStore.ts";
 
 
 import ChessBoardComponent from "./components/ChessBoardComponent.tsx";
@@ -15,7 +15,7 @@ export default function ChessPage() {
 	const { setShowCreateForm } = useChessStoreActions();
 
 	return (
-		<section className="flex flex-wrap gap-5 justify-center">
+		<section className="min-h-screen flex flex-wrap gap-5 justify-center items-center overflow-auto">
 			{_.map(useInstanceKeys(), instanceKey => (
 				<div key={instanceKey} className="px-5 border-2 bg-gray-800 rounded-2xl border-yellow-200 
 					flex items-center flex-col

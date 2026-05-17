@@ -1,11 +1,11 @@
 import AboutPage from "./AboutPage/AboutPage.tsx";
 import ChessPage from "./ChessAI/ChessPage.tsx";
-import HomePage from "./Homepage/Homepage.tsx";
+import ChessAIHomepage from "./Homepage/chess-ai-homepage.tsx";
 
 export const Pages = {
 	Home: {
 		route: "/",
-		element: <HomePage />,
+		element: <ChessAIHomepage />,
 	},
 	ChessAI: {
 		route: "/ChessAI",
