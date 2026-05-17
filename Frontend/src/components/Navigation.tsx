@@ -9,10 +9,11 @@ export default function Navigation() {
 	const location = useLocation();
 	
 	return (
-		<nav className={`fixed left-0 right-0 z-50 backdrop-blur-sm`}>
+		<nav className="fixed left-0 right-0 z-50 backdrop-blur-sm">
 			<div className="flex items-center justify-between max-w-7xl w-9/10 mx-auto p-6">
 				<div className="flex gap-2 items-center">
-					<span className="bg-linear-to-br from-amber-400 to-orange-500 bg-clip-text text-transparent text-2xl font-bold">SENTINEL</span>
+					<span className="bg-linear-to-br from-amber-400 to-orange-500 bg-clip-text 
+						text-transparent text-2xl font-bold">SENTINEL</span>
 					<span className="text-white/60 text-sm font-normal">CHESS AI</span>
 				</div>
 				<nav aria-label="Main Navigation" className="flex gap-2 justify-center mx-auto">
