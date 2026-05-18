@@ -39,30 +39,13 @@ export default function ChessAIHomepage() {
 		setIsVisible(true);
 	}, []);
 
-	useEffect(() => {
-		const positions = [
-			"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
-			"rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR",
-			"rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR",
-			"rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R",
-		];
-
-		let index = 0;
-		const interval = setInterval(() => {
-			index = (index + 1) % positions.length;
-			setGamePosition(positions[index]);
-		}, 3000);
-
-		return () => clearInterval(interval);
-	}, []);
-
 	return (
 		<>
 			<section className="min-h-screen max-w-7xl w-full mx-auto py-20 
 				grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 				<div className={`space-y-8 transition-all duration-1000 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}>
 					<div className="inline-block px-4 py-1 my-4 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs tracking-widest">
-							NEURAL NETWORK INTELLIGENCE
+						NEURAL NETWORK INTELLIGENCE
 					</div>
 					
 					<h1 className="text-7xl font-bold leading-[0.95] tracking-tight">
@@ -79,28 +62,30 @@ export default function ChessAIHomepage() {
 					</p>
 
 					<div className="flex gap-4">
-						<button className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-semibold rounded transition-all transform hover:scale-105">
+						<button className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 text-black font-semibold rounded 
+							hover:scale-105 hover:from-amber-400 hover:to-orange-500">
 							Request Demo
 						</button>
-						<button className="px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 rounded transition-all">
+						<button className="px-8 py-4 bg-white/5 border border-white/20 rounded transition-all 
+							hover:scale-105 hover:bg-white/10">
 							View Research
 						</button>
 					</div>
 
-					{/* Stats */}
-					<div className="grid grid-cols-4 gap-6 pt-8 border-t border-white/10">
+					<table className="grid grid-cols-4 gap-6 pt-8 border-t border-white/10">
 						{stats.map((stat, i) => (
-							<div key={i} className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
-								style={{ transitionDelay: `${600 + i * 100}ms` }}>
-								<div className="text-2xl font-bold bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+							<div key={i} className={`flex flex-col items-start 
+								transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+							style={{ transitionDelay: `${600 + i * 100}ms` }}>
+								<td className="text-2xl font-bold bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
 									{stat.value}
-								</div>
-								<div className="text-xs text-white/40 uppercase tracking-wider mt-1">
+								</td>
+								<th className="text-xs text-white/40 uppercase tracking-wider mt-1">
 									{stat.label}
-								</div>
+								</th>
 							</div>
 						))}
-					</div>
+					</table>
 				</div>
 
 				{/* Chess Board */}
