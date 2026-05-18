@@ -17,7 +17,7 @@ export default function App() {
 function Layout() {
 	const location = useLocation();
 	return (
-		<div className="min-h-screen overflow-hidden">
+		<main className="min-h-screen overflow-hidden">
 			<Navigation />
 			<Routes location={location} key={location.pathname}>
 				{_.map(PageKeys, key => 
@@ -26,6 +26,6 @@ function Layout() {
 						element={Pages[key].element} 
 					/>)}
 			</Routes>
-		</div>
+		</main>
 	);
 }

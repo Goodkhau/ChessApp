@@ -1,6 +1,6 @@
 import AboutPage from "./AboutPage/AboutPage.tsx";
 import ChessPage from "./ChessAI/ChessPage.tsx";
-import ChessAIHomepage from "./Homepage/chess-ai-homepage.tsx";
+import ChessAIHomepage from "./Homepage/index.tsx";
 
 export const Pages = {
 	Home: {
