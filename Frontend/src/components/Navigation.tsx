@@ -2,11 +2,13 @@ import _ from "lodash";
 import { NavLink, useLocation } from "react-router-dom";
 
 import { Pages } from "../pages/index.tsx";
+import { usePageStoreActions } from "../stores/PageStore.ts";
 
 const PageKeys = Object.keys(Pages) as Array<keyof typeof Pages>;
 
 export default function Navigation() {
 	const location = useLocation();
+	const { updatePage } = usePageStoreActions();
 	
 	return (
 		<nav className="fixed left-0 right-0 z-50 backdrop-blur-sm">
@@ -24,6 +26,7 @@ export default function Navigation() {
 									? "bg-white/10 border border-white/20 rounded text-white/40 hover:text-white/60 hover:bg-white/20"
 									: "bg-black/10 rounded text-white/60 hover:text-white/80"
 							}`}
+							onClick={() => updatePage(key)}
 						>{key}</NavLink>
 					))}
 				</nav>

@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Chessboard } from "react-chessboard";
+import { usePageStore } from "../../../stores/PageStore";
 
 const stats = [
 	{ value: "2.8M", label: "Games Analyzed" },
@@ -10,12 +11,8 @@ const stats = [
 
 export default function Title() {
 	const [gamePosition, setGamePosition] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-	const [isVisible, setIsVisible] = useState(false);
-
-	useEffect(() => {
-		setIsVisible(true);
-	}, []);
-
+	const { isVisible } = usePageStore();
+	
 	return (
 		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 
 				grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"

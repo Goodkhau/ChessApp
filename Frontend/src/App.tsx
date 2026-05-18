@@ -22,6 +22,7 @@ function Layout() {
 			<Routes location={location} key={location.pathname}>
 				{_.map(PageKeys, key => 
 					<Route
+						key={key}
 						path={Pages[key].route}
 						element={Pages[key].element} 
 					/>)}

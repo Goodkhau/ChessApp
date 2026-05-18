@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
 
+import { useEffect } from "react";
+
+import { usePageStoreActions } from "../../stores/PageStore.ts";
 import Title from "./components/Title.tsx";
 
 const features = [
@@ -26,11 +28,11 @@ const features = [
 ];
 
 export default function ChessAIHomepage() {
-	const [isVisible, setIsVisible] = useState(false);
+	const { setIsVisible } = usePageStoreActions();
 
 	useEffect(() => {
 		setIsVisible(true);
-	}, []);
+	}, [setIsVisible]);
 
 	return (
 		<>
@@ -41,7 +43,7 @@ export default function ChessAIHomepage() {
 				<div className="max-w-7xl mx-auto">
 					<div className="text-center mb-20">
 						<h2 className="text-5xl font-bold mb-6">
-							Uncompromising <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Performance</span>
+							Uncompromising <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Performance</span>
 						</h2>
 						<p className="text-xl text-white/60 max-w-2xl mx-auto">
 							Every millisecond matters. Every variation counts. Built for those who accept nothing less than perfection.
@@ -68,9 +70,9 @@ export default function ChessAIHomepage() {
 			{/* CTA Section */}
 			<section className="py-32 px-6">
 				<div className="max-w-4xl mx-auto text-center">
-					<div className="p-12 bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl backdrop-blur">
+					<div className="p-12 bg-linear-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl backdrop-blur">
 						<h2 className="text-5xl font-bold mb-6">
-							Ready to <span className="bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Evolve</span>?
+							Ready to <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Evolve</span>?
 						</h2>
 						<p className="text-xl text-white/60 mb-8 max-w-2xl mx-auto">
 							Join the future of chess intelligence. Request access to Sentinel and experience the next generation of strategic AI.
@@ -81,7 +83,7 @@ export default function ChessAIHomepage() {
 								placeholder="Enter your email"
 								className="px-6 py-4 bg-white/5 border border-white/20 rounded text-white placeholder-white/40 focus:outline-none focus:border-amber-500/50 w-80"
 							/>
-							<button className="px-8 py-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-semibold rounded transition-all transform hover:scale-105">
+							<button className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-black font-semibold rounded transition-all transform hover:scale-105">
 								Get Early Access
 							</button>
 						</div>
