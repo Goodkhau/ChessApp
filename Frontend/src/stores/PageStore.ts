@@ -31,12 +31,9 @@ const usePageStore = create<State & Actions>()((set) => ({
 		}),
 
 		updatePage: (page) => set(state => {
-			console.log({
-				isVisible: false,
-				currentPage: page,
-				currentIndex: Pages[page].index,
-				previousIndex: state.currentIndex,
-			});
+			if (page === state.currentPage)
+				return { ...state };
+			
 			return {
 				isVisible: false,
 				currentPage: page,
