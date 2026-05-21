@@ -1,7 +1,9 @@
 import _ from "lodash";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
+import { AnimatePresence } from "framer-motion";
 import Navigation from './components/Navigation.tsx';
+import PageTransition from "./pages/Animations/PageAnimation.tsx";
 import { Pages } from "./pages/index.tsx";
 
 const PageKeys = Object.keys(Pages) as Array<keyof typeof Pages>;
@@ -19,14 +21,21 @@ function Layout() {
 	return (
 		<main className="min-h-screen overflow-hidden">
 			<Navigation />
-			<Routes location={location} key={location.pathname}>
-				{_.map(PageKeys, key => 
-					<Route
-						key={key}
-						path={Pages[key].route}
-						element={Pages[key].element} 
-					/>)}
-			</Routes>
+			<AnimatePresence mode="wait">
+				<Routes location={location} key={location.pathname}>
+					{_.map(PageKeys, key =>
+						<Route
+							key={key}
+							path={Pages[key].route}
+							element={
+								<PageTransition>
+									{Pages[key].element}
+								</PageTransition>
+							} 
+						/>,
+					)}
+				</Routes>
+			</AnimatePresence>
 		</main>
 	);
 }
