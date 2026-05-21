@@ -46,7 +46,8 @@ const usePageStore = create<State & Actions>()((set) => ({
 
 const usePageStoreActions = () => usePageStore(state => state.actions);
 
-export {
-	usePageStore, usePageStoreActions
-};
+const useCurrentIndex = () => usePageStore(state => state.currentIndex);
+const usePreviousIndex = () => usePageStore(state => state.previousIndex);
+
+export { useCurrentIndex, usePageStore, usePageStoreActions, usePreviousIndex };
 
