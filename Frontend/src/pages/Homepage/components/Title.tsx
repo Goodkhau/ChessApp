@@ -18,15 +18,16 @@ export default function Title() {
 			grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
 		>
 			<div className={`space-y-8 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-10 -translate-x-8'}`}>
-				<div className="inline-block px-4 py-1 my-4 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs tracking-widest">
+				<div className="inline-block px-4 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs tracking-widest">
 					NEURAL NETWORK INTELLIGENCE
 				</div>
 					
-				<h1 className="text-7xl font-bold leading-[0.95] tracking-tight">
-					The Future of
+				<h1 className="text-5xl font-bold leading-[0.95] tracking-tight mb-4">
+					Tensorflow & Keras Based
+					Deep Learning
 					<br />
-					<span className="bg-linear-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
-						Strategic AI
+					<span className="text-7xl bg-linear-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
+						Chess AI
 					</span>
 				</h1>
 
