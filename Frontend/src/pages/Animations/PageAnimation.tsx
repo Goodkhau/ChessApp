@@ -25,7 +25,7 @@ export default function PageTransition({ children }: PageTransitionProps) {
 			initial="initial"
 			animate="animate"
 			exit="exit"
-			transition={{ duration: 0.1 }}
+			transition={{ duration: 0.15 }}
 		>
 			{children}
 		</motion.main>

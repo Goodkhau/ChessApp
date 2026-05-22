@@ -17,7 +17,7 @@ export default function Title() {
 		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 
 			grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
 		>
-			<div className={`space-y-8 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-3 -translate-x-8'}`}>
+			<div className={`space-y-8 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-10 -translate-x-8'}`}>
 				<div className="inline-block px-4 py-1 my-4 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs tracking-widest">
 					NEURAL NETWORK INTELLIGENCE
 				</div>
@@ -49,7 +49,7 @@ export default function Title() {
 				<table className="grid grid-cols-4 gap-6 pt-8 border-t border-white/10">
 					{stats.map((stat, i) => (
 						<div key={i} className={`flex flex-col items-start 
-							transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-3 translate-y-4'}`}
+							transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-4'}`}
 						style={{ transitionDelay: `${300 + i * 100}ms` }}>
 							<td className="text-2xl font-bold bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
 								{stat.value}
@@ -62,7 +62,7 @@ export default function Title() {
 				</table>
 			</div>
 
-			<div className={`transition-all duration-500 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-3 translate-x-8'}`}>
+			<div className={`transition-all duration-500 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-10 translate-x-8'}`}>
 				<div className="absolute -inset-4 bg-linear-to-r from-amber-500/20 to-orange-500/20 blur-2xl" />
 				<div className="relative border-2 border-white/10 rounded-lg overflow-hidden shadow-2xl">
 					<Chessboard options={{ position: gamePosition }} />
