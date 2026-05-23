@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Chessboard } from "react-chessboard";
-import { usePageStore } from "../../../stores/PageStore";
+import { NavLink } from "react-router-dom";
+
+import { usePageStore, usePageStoreActions } from "../../../stores/PageStore";
 
 const stats = [
-	{ value: "2.8M", label: "Games Analyzed" },
-	{ value: "99.4%", label: "Accuracy Rate" },
-	{ value: "3200+", label: "ELO Rating" },
-	{ value: "<0.1s", label: "Move Time" },
+	{ value: "200k", label: "Games Analyzed" },
+	{ value: "56h", label: "Training Time" },
+	{ value: "~700", label: "ELO Estimate" },
+	{ value: "<0.2s", label: "Move Time" },
 ];
 
 export default function Title() {
 	const [gamePosition, setGamePosition] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
 	const { isVisible } = usePageStore();
+	const { updatePage } = usePageStoreActions();
 	
 	return (
 		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 
@@ -23,8 +26,8 @@ export default function Title() {
 				</div>
 					
 				<h1 className="text-5xl font-bold leading-[0.95] tracking-tight mb-4">
-					Tensorflow & Keras Based
-					Deep Learning
+					Tensorflow & Keras API
+					Based Deep Learning
 					<br />
 					<span className="text-7xl bg-linear-to-r from-amber-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
 						Chess AI
@@ -32,15 +35,18 @@ export default function Title() {
 				</h1>
 
 				<p className="text-xl text-white/60 leading-relaxed max-w-xl">
-					Sentinel harnesses cutting-edge neural networks to master the infinite complexity of chess.
-					Built for grandmasters, researchers, and those who demand absolute precision.
+					Tokenizing chess games represented in standard algebraic notation (SAN) and running them through a deep
+					learning neural network, this project aims to quantify semantic meaning behind a logical set of notations.
 				</p>
 
 				<div className="flex gap-4">
-					<button className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 text-black font-semibold rounded 
+					<NavLink 
+						to="/ChessAI"
+						onClick={() => updatePage("ChessAI")}
+						className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 text-black/80 font-semibold rounded 
 						hover:scale-105 hover:from-amber-400 hover:to-orange-500">
-						Request Demo
-					</button>
+						Demo Models
+					</NavLink>
 					<button className="px-8 py-4 bg-white/5 border border-white/20 rounded transition-all 
 						hover:scale-105 hover:bg-white/10">
 						View Research

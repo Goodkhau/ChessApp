@@ -37,17 +37,15 @@ export default function ChessAIHomepage() {
 	return (
 		<>
 			<Title />
-			
 			<section className="max-w-7xl mx-auto py-32 px-6">
 				<div className="text-center mb-20">
 					<h2 className="text-5xl font-bold mb-6">
-								Uncompromising <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Performance</span>
+						Uncompromising <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Performance</span>
 					</h2>
 					<p className="text-xl text-white/60 max-w-2xl mx-auto">
-								Every millisecond matters. Every variation counts. Built for those who accept nothing less than perfection.
+						Every millisecond matters. Every variation counts. Built for those who accept nothing less than perfection.
 					</p>
 				</div>
-
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{features.map((feature, i) => (
 						<div key={i}
@@ -63,8 +61,6 @@ export default function ChessAIHomepage() {
 					))}
 				</div>
 			</section>
-
-			{/* CTA Section */}
 			<section className="my-32 p-12 max-w-4xl mx-auto text-center bg-linear-to-br from-white/5 to-white/0 border border-white/10 rounded-2xl backdrop-blur">
 				<h2 className="text-5xl font-bold mb-6">
 							Ready to <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Evolve</span>?
@@ -83,7 +79,6 @@ export default function ChessAIHomepage() {
 					</button>
 				</div>
 			</section>
-
 			<footer className="py-12 px-6 border-t border-white/10 max-w-7xl mx-auto flex justify-between items-center">
 				<div className="text-white/40 text-sm">
 						© 2024 Sentinel Chess AI. All rights reserved.
