@@ -2,7 +2,9 @@ import { useState } from "react";
 import { Chessboard } from "react-chessboard";
 import { NavLink } from "react-router-dom";
 
+import { Chess } from "chess.js";
 import { usePageStore, usePageStoreActions } from "../../../stores/PageStore";
+import { useInterval } from "../hooks/useInterval";
 
 const stats = [
 	{ value: "200k", label: "Games Analyzed" },
@@ -10,11 +12,93 @@ const stats = [
 	{ value: "~700", label: "ELO Estimate" },
 	{ value: "<0.2s", label: "Move Time" },
 ];
+const game = [
+	"Nf3",
+	"c5",
+	"g3",
+	"Nc6",
+	"Bg2",
+	"g6",
+	"d4",
+	"cxd4",
+	"Nxd4",
+	"Bg7",
+	"Nb3",
+	"Nf6",
+	"c4",
+	"O-O",
+	"Nc3",
+	"d6",
+	"Bf4",
+	"Be6",
+	"c5",
+	"d5",
+	"O-O",
+	"Qd7",
+	"Qd2",
+	"Rad8",
+	"Rad1",
+	"Bh3",
+	"Bh6",
+	"Bxg2",
+	"Kxg2",
+	"d4",
+	"Bxg7",
+	"Kxg7",
+	"Nb5",
+	"Qd5+",
+	"f3",
+	"Qh5",
+	"e4",
+	"a6",
+	"Na3",
+	"h6",
+	"Nc4",
+	"e5",
+	"Nc1",
+	"Qg5",
+	"Nd3",
+	"Rfe8",
+	"b4",
+	"Nh5",
+	"Qxg5",
+	"hxg5",
+	"a4",
+	"f6",
+	"b5",
+	"Ne7",
+	"Rb1",
+	"Rd7",
+	"bxa6",
+	"bxa6",
+	"Rb6",
+	"Rc8",
+	"Rxa6",
+	"Nc6",
+	"Rb1",
+	"Nb8",
+	"Ra8",
+];
 
 export default function Title() {
-	const [gamePosition, setGamePosition] = useState("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+	const [chessGame, setChessGame] = useState(new Chess);
+	const [index, setIndex] = useState(0);
+	const [gamePosition, setGamePosition] = useState(chessGame.fen());
 	const { isVisible } = usePageStore();
 	const { updatePage } = usePageStoreActions();
+
+	useInterval({ callback: () => {
+		if (index >= game.length || game[index] === undefined) {
+			setChessGame(new Chess());
+			setGamePosition(chessGame.fen());
+			setIndex(0);
+		}
+		else {
+			chessGame.move(game[index]);
+			setGamePosition(chessGame.fen());
+			setIndex(index + 1);
+		}
+	}, delay: 1000 });
 	
 	return (
 		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 
@@ -47,10 +131,13 @@ export default function Title() {
 						hover:scale-105 hover:from-amber-400 hover:to-orange-500">
 						Demo Models
 					</NavLink>
-					<button className="px-8 py-4 bg-white/5 border border-white/20 rounded transition-all 
+					<NavLink
+						to="/About"
+						onClick={() => updatePage("About")}
+						className="px-8 py-4 bg-white/5 border border-white/20 rounded transition-all 
 						hover:scale-105 hover:bg-white/10">
 						View Research
-					</button>
+					</NavLink>
 				</div>
 
 				<table className="grid grid-cols-4 gap-6 pt-8 border-t border-white/10">
