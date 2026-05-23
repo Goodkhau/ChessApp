@@ -1,1 +1,1 @@
-{"root":["./src/App.tsx","./src/ChessElement.tsx","./src/Homepage.tsx","./src/main.tsx","./src/vite.config.ts","./tsconfig.json"],"version":"5.9.3"}
+{"root":["./src/App.tsx","./src/main.tsx","./tsconfig.json"],"version":"5.9.3"}
