@@ -16,10 +16,34 @@ interface Actions {
 	}
 }
 
+function setInitalPage() {
+	const path = window.location.pathname;
+	switch (path) {
+		case "/":
+			return "Home";
+		default:
+			return path.substring(1, path.length);
+	}
+}
+
+function setInitialIndex() {
+	const path = window.location.pathname;
+	switch (path.substring(1, path.length)) {
+		case "Home":
+			return 0;
+		case "ChessAI":
+			return 1;
+		case "About":
+			return 2;
+		default:
+			return 0;
+	}
+}
+
 const usePageStore = create<State & Actions>()((set) => ({
 	isVisible: false,
-	currentPage: "Home",
-	currentIndex: 0,
+	currentPage: setInitalPage(),
+	currentIndex: setInitialIndex(),
 	previousIndex: -1,
 
 	actions: {

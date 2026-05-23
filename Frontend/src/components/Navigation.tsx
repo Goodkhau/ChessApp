@@ -20,7 +20,8 @@ export default function Navigation() {
 				</div>
 				<nav aria-label="Main Navigation" className="flex flex-wrap gap-2 justify-center">
 	 				{_.map(PageKeys, (key) => (
-						<NavLink 
+						<NavLink
+							key={key}
 							to={Pages[key].route}
 							onClick={() => updatePage(key)}
 							className={`w-40 px-4 py-2 text-sm text-center ${
