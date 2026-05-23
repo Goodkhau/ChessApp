@@ -3,6 +3,7 @@ import { Chessboard } from "react-chessboard";
 import { NavLink } from "react-router-dom";
 
 import { Chess } from "chess.js";
+import { Pages } from "../..";
 import { usePageStore, usePageStoreActions } from "../../../stores/PageStore";
 import { useInterval } from "../hooks/useInterval";
 
@@ -87,6 +88,8 @@ export default function Title() {
 	const { isVisible } = usePageStore();
 	const { updatePage } = usePageStoreActions();
 
+	const { About, ChessAI } = Pages;
+
 	useInterval({ callback: () => {
 		if (index >= game.length || game[index] === undefined) {
 			setChessGame(new Chess());
@@ -125,14 +128,14 @@ export default function Title() {
 
 				<div className="flex gap-4">
 					<NavLink 
-						to="/ChessAI"
+						to={ChessAI.route}
 						onClick={() => updatePage("ChessAI")}
 						className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 text-black/80 font-semibold rounded 
 						hover:scale-105 hover:from-amber-400 hover:to-orange-500">
 						Demo Models
 					</NavLink>
 					<NavLink
-						to="/About"
+						to={About.route}
 						onClick={() => updatePage("About")}
 						className="px-8 py-4 bg-white/5 border border-white/20 rounded transition-all 
 						hover:scale-105 hover:bg-white/10">
@@ -140,19 +143,21 @@ export default function Title() {
 					</NavLink>
 				</div>
 
-				<table className="grid grid-cols-4 gap-6 pt-8 border-t border-white/10">
-					{stats.map((stat, i) => (
-						<div key={i} className={`flex flex-col items-start 
+				<table className="border-t border-white/10">
+					<tbody className="grid grid-cols-4 gap-6 pt-8">
+						{stats.map((stat, i) => (
+							<tr key={i} className={`flex flex-col items-start 
 							transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-10 translate-y-4'}`}
-						style={{ transitionDelay: `${300 + i * 100}ms` }}>
-							<td className="text-2xl font-bold bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-								{stat.value}
-							</td>
-							<th className="text-xs text-white/40 uppercase tracking-wider mt-1">
-								{stat.label}
-							</th>
-						</div>
-					))}
+							style={{ transitionDelay: `${300 + i * 100}ms` }}>
+								<td className="text-2xl font-bold bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+									{stat.value}
+								</td>
+								<th className="text-xs text-white/40 uppercase tracking-wider mt-1">
+									{stat.label}
+								</th>
+							</tr>
+						))}
+					</tbody>
 				</table>
 			</div>
 

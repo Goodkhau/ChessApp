@@ -1,10 +1,10 @@
 import { create } from "zustand";
 
-import { Pages } from "../pages/index.tsx";
+import { Pages, pageTitles } from "../pages/index.tsx";
 
 interface State {
 	isVisible: boolean;
-    currentPage: keyof typeof Pages;
+    currentPage: string;
 	currentIndex: number;
 	previousIndex: number;
 }
@@ -12,7 +12,7 @@ interface State {
 interface Actions {
 	actions: {
 		setIsVisible: (isVisible: boolean) => void,
-		updatePage: (page: keyof typeof Pages) => void,
+		updatePage: (page: pageTitles) => void,
 	}
 }
 
@@ -37,7 +37,7 @@ const usePageStore = create<State & Actions>()((set) => ({
 			return {
 				isVisible: false,
 				currentPage: page,
-				currentIndex: Pages[page].index,
+				currentIndex: Pages[page as pageTitles].index,
 				previousIndex: state.currentIndex,
 			};
 		}),

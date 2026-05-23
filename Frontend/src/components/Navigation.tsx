@@ -20,13 +20,14 @@ export default function Navigation() {
 				</div>
 				<nav aria-label="Main Navigation" className="flex flex-wrap gap-2 justify-center">
 	 				{_.map(PageKeys, (key) => (
-						<NavLink to={Pages[key].route}
+						<NavLink 
+							to={Pages[key].route}
+							onClick={() => updatePage(key)}
 							className={`w-40 px-4 py-2 text-sm text-center ${
 								location.pathname === Pages[key].route
 									? "bg-white/10 border border-white/20 rounded text-white/40 hover:text-white/60 hover:bg-white/20"
 									: "bg-black/10 rounded text-white/60 hover:text-white/80"
 							}`}
-							onClick={() => updatePage(key)}
 						>{key}</NavLink>
 					))}
 				</nav>
