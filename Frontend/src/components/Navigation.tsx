@@ -25,8 +25,8 @@ export default function Navigation() {
 							onClick={() => updatePage(key)}
 							className={`w-40 px-4 py-2 text-sm text-center ${
 								location.pathname === Pages[key].route
-									? "bg-white/10 border border-white/20 rounded text-white/40 hover:text-white/60 hover:bg-white/20"
-									: "bg-black/10 rounded text-white/60 hover:text-white/80"
+									? "bg-white/5 rounded text-white/40 hover:text-white/60 hover:bg-white/10"
+									: "bg-black/5 rounded text-white/60 hover:text-white/80 hover:bg-white/3"
 							}`}
 						>{key}</NavLink>
 					))}
