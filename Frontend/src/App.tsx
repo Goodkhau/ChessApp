@@ -1,9 +1,9 @@
-import { AnimatePresence } from 'framer-motion';
 import _ from "lodash";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
-import Navigation from './Navigation.tsx';
-import PageTransition from './pages/Animations/PageAnimation.tsx';
+import { AnimatePresence } from "framer-motion";
+import Navigation from './components/Navigation.tsx';
+import PageTransition from "./pages/Animations/PageAnimation.tsx";
 import { Pages } from "./pages/index.tsx";
 
 const PageKeys = Object.keys(Pages) as Array<keyof typeof Pages>;
@@ -19,19 +19,23 @@ export default function App() {
 function Layout() {
 	const location = useLocation();
 	return (
-		<>
+		<main className="min-h-screen overflow-hidden">
 			<Navigation />
-			<AnimatePresence mode="sync">
+			<AnimatePresence mode="wait">
 				<Routes location={location} key={location.pathname}>
-					{_.map(PageKeys, key => 
+					{_.map(PageKeys, key =>
 						<Route
+							key={key}
 							path={Pages[key].route}
 							element={
-								<PageTransition>{Pages[key].element}</PageTransition>
+								<PageTransition>
+									{Pages[key].element}
+								</PageTransition>
 							} 
-						/>)}
+						/>,
+					)}
 				</Routes>
 			</AnimatePresence>
-		</>
+		</main>
 	);
 }

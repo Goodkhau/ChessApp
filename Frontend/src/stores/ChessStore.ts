@@ -40,7 +40,7 @@ interface Actions {
 
 const useChessStore = create<State & Actions>()((set, get) => ({
 	length: 0,
-	showCreateForm: true,
+	showCreateForm: false,
 	instances: {},
 
 	actions: {
