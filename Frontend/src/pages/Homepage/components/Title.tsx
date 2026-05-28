@@ -27,7 +27,7 @@ export default function Title() {
 
 	const { About, ChessAI } = Pages;
 
-	useInterval({ callback: () => {
+	useInterval(() => {
 		if (index >= game.length || game[index] === undefined) {
 			setChessGame(new Chess());
 			setGamePosition(chessGame.fen());
@@ -38,7 +38,7 @@ export default function Title() {
 			setGamePosition(chessGame.fen());
 			setIndex(index + 1);
 		}
-	}, delay: 1000 });
+	}, 1000);
 	
 	return (
 		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 

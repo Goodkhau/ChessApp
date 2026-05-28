@@ -19,7 +19,7 @@ export default function App() {
 function Layout() {
 	const location = useLocation();
 	return (
-		<main className="min-h-screen overflow-hidden">
+		<main className="min-h-screen">
 			<Navigation />
 			<AnimatePresence mode="wait">
 				<Routes location={location} key={location.pathname}>
