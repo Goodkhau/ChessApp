@@ -36,7 +36,7 @@ export default function Features() {
 	useInterval(() => setScrollProgress(scrollYProgress.get()), 50);
 
 	return (
-		<section className="max-w-7xl mx-auto h-1000 py-32 px-6" ref={ref}>
+		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>
 			<div className="sticky text-7xl top-0 z-100 text-white">{scrollProgress}</div>
 			<div className="sticky z-99 top-0 h-screen flex flex-col items-center justify-center">
 				<div className="text-center mb-20">
