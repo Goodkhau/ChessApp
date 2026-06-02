@@ -2,6 +2,8 @@ import { useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import { useInterval } from "../hooks/useInterval";
 
+import NeuralNetworkComponent from "../../AboutPage/components/NeuralNetwork.tsx";
+
 const features = [
 	{
 		title: "Neural Network Engine",
@@ -39,7 +41,8 @@ export default function Features() {
 		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>
 			<div className="sticky text-7xl top-0 z-100 text-white">{scrollProgress}</div>
 			<div className="sticky z-99 top-0 h-screen flex flex-col items-center justify-center">
-				<div className="text-center mb-20">
+				<NeuralNetworkComponent />
+				{/* <div className="text-center mb-20">
 					<h2 className="text-5xl font-bold mb-6">
 						Uncompromising <span className="bg-linear-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">Performance</span>
 					</h2>
@@ -60,7 +63,7 @@ export default function Features() {
 							</p>
 						</div>
 					))}
-				</div>
+				</div> */}
 			</div>
 		</section>
 	);

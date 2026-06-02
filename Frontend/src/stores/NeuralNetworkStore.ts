@@ -1,6 +1,8 @@
 import _ from "lodash";
 import { create } from "zustand";
 
+import { useShallow } from "zustand/shallow";
+
 interface LayerConfig {
     layerName: string
     neuronCount: number;
@@ -74,7 +76,7 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 				const placement = (1440 / maxCount) * currentNeuron;
 				NeuralNetwork.layers[id].neurons[_n] = {
 					weight: Math.random(),
-					x: 1440 / currentLayer,
+					x: 1440 / (LAYERS_CONF.length + 1) * (currentLayer + 1),
 					y: placement + displacement,
 				};
 			}
@@ -86,7 +88,9 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 	},
 }));
 
-export {
-	useNeuralNetworkStore
-};
+const useLayerKeys = () => useNeuralNetworkStore(useShallow(state => Object.keys(state.layers)));
+const useNeuronKeys = (id: string) => useNeuralNetworkStore(useShallow(state => Object.keys(state.layers[id].neurons)));
+const useNeuron = (id: string, _n: string) => useNeuralNetworkStore(state => state.layers[id].neurons[_n]);
+
+export { useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys };
 

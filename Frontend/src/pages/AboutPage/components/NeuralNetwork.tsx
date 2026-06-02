@@ -1,51 +1,36 @@
+import _ from "lodash";
 
-interface NeuralNetworkProps {
-    className: string;
-}
+import { useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys } from "../../../stores/NeuralNetworkStore";
 
-interface NeuralNetwork {
-    layers: Layer[];
-}
+useNeuralNetworkStore.getState().createNetwork();
 
-interface Layer {
-    name: string;
-    neurons: Neuron[];
-}
-
-interface Neuron {
-    weight: number
-}
-
-interface LayerConfig {
-    layerName: string
-    neuronCount: number;
-}
-
-const LAYERS_CONF: LayerConfig[] = [
-	{ layerName: "Input", neuronCount: 4 },
-	{ layerName: "Hidden", neuronCount: 6 },
-	{ layerName: "Hidden", neuronCount: 6 },
-	{ layerName: "Output", neuronCount: 4 },
-];
-
-const NeuralNetwork: NeuralNetwork = { layers: [] };
-for (let currentLayer = 0; currentLayer < LAYERS_CONF.length; currentLayer++) {
-	NeuralNetwork.layers.push({
-		name: LAYERS_CONF[currentLayer].layerName,
-		neurons: [],
-	});
-
-	for (let currentNeuron = 0; currentNeuron < LAYERS_CONF[currentLayer].neuronCount; currentNeuron++) {
-		NeuralNetwork.layers[currentLayer].neurons.push({
-			weight: Math.random(),
-		});
-	}
-}
-
-export default function NeuralNetworkComponent({ className }: NeuralNetworkProps) {
+function NeuronComponent({ layerName, neuronName }: { layerName: string, neuronName: string }) {
+	const neuron = useNeuron(layerName, neuronName);
 	return (
-		<div className={className}>
-            
-		</div>
+		<circle cx={neuron.x} cy={neuron.y} r={50} fill="white" />
+	);
+}
+
+function LayerComponent({ layerName }: {layerName:string}) {
+	const neurons = useNeuronKeys(layerName);
+	return (
+		<>
+			{_.map(neurons, neuronName =>
+				<NeuronComponent layerName={layerName} neuronName={neuronName}/>,
+			)}
+		</>
+	);
+}
+
+export default function NeuralNetworkComponent({ className }: { className?: string }) {
+	const layers = useLayerKeys();
+	
+	return (
+		<svg className={className}
+			viewBox="0 0 1440 1440">
+			{_.map(layers, layer => {
+				return <LayerComponent layerName={layer} />;
+			})}
+		</svg>
 	);
 }
