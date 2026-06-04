@@ -47,6 +47,9 @@ const LAYERS_CONF: LayerConfig[] = [
 	{ layerName: "Output", neuronCount: 4 },
 ];
 
+const HEIGHT = 720;
+const WIDTH = 1440;
+
 const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 	layers: {},
 	connection: {},
@@ -72,17 +75,19 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 
 			for (let currentNeuron = 0; currentNeuron < LAYERS_CONF[currentLayer].neuronCount; currentNeuron++) {
 				const _n = `n-${currentNeuron}`;
-				const displacement = (1440 / maxCount * (maxCount - LAYERS_CONF[currentLayer].neuronCount)) / 2;
-				const placement = (1440 / maxCount) * currentNeuron;
+				const displacement = (HEIGHT / (maxCount + 1) * (maxCount - LAYERS_CONF[currentLayer].neuronCount + 1)) / 2;
+				const placement = HEIGHT / (maxCount + 1) * (currentNeuron + 1 / 2);
 				NeuralNetwork.layers[id].neurons[_n] = {
 					weight: Math.random(),
-					x: 1440 / (LAYERS_CONF.length + 1) * (currentLayer + 1),
+					x: WIDTH / (LAYERS_CONF.length + 1) * (currentLayer + 1),
 					y: placement + displacement,
 				};
 			}
 		}
 
 		//Create connections
+
+		console.log(NeuralNetwork);
 
 		set(() => NeuralNetwork);
 	},
