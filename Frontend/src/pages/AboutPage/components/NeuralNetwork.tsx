@@ -7,7 +7,10 @@ useNeuralNetworkStore.getState().createNetwork();
 function NeuronComponent({ layerName, neuronName }: { layerName: string, neuronName: string }) {
 	const neuron = useNeuron(layerName, neuronName);
 	return (
-		<circle cx={neuron.x} cy={neuron.y} r={40} fill="white" />
+		<>
+			<circle cx={neuron.x} cy={neuron.y} r={40} fill="white" />
+			<circle cx={neuron.x} cy={neuron.y} r={38} fill="gray" />
+		</>
 	);
 }
 
