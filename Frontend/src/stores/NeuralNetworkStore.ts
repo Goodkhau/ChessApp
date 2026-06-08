@@ -142,6 +142,7 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 }));
 
 const useLayerKeys = () => useNeuralNetworkStore(useShallow(state => Object.keys(state.layers)));
+
 const useNeuronKeys = (id: string) => useNeuralNetworkStore(useShallow(state => Object.keys(state.layers[id].neurons)));
 const useConnectionKeys = (id: string) => useNeuralNetworkStore(useShallow(state => Object.keys(state.fromLayer[id] ?? {})));
 
