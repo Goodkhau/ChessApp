@@ -1,7 +1,9 @@
 import { useScroll } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useInterval } from "../hooks/useInterval";
 
+import { usePageStore } from "../../../stores/PageStore.ts";
+import { useScrollStore } from "../../../stores/ScollStore.ts";
 import NeuralNetworkComponent from "../../AboutPage/components/NeuralNetwork.tsx";
 
 const features = [
@@ -28,14 +30,19 @@ const features = [
 ];
 
 export default function Features() {
-	const [scrollProgress, setScrollProgress] = useState(0);
+	const { scrollProgress, setScrollProgress } = useScrollStore();
+	const { currentPage } = usePageStore();
 	const ref = useRef(null);
+	
 	const { scrollYProgress } = useScroll({
 		target: ref,
 		offset: ["start end", "end end"],
 	});
 
-	useInterval(() => setScrollProgress(scrollYProgress.get()), 50);
+	useInterval(() => {
+		if (currentPage === "Home")
+			setScrollProgress(scrollYProgress.get());
+	}, 100);
 
 	return (
 		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>

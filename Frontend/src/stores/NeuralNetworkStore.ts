@@ -135,8 +135,6 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 			}
 		}
 
-		console.log(NeuralNetwork);
-
 		set(() => NeuralNetwork);
 	},
 }));
