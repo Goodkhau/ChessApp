@@ -117,6 +117,8 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 			const currentLayerID = getLayerID(currentLayer);
 			const nextLayerID = getLayerID(currentLayer + 1);
 
+			NeuralNetwork.fromLayer[currentLayerID] = {};
+
 			for (let currentNeuron = 0; currentNeuron < LAYERS_CONF[currentLayer].neuronCount; currentNeuron++) {
 				const currentNeuronID = getNeuronID(currentNeuron);
 
@@ -133,18 +135,18 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 			}
 		}
 
+		console.log(NeuralNetwork);
+
 		set(() => NeuralNetwork);
 	},
 }));
 
 const useLayerKeys = () => useNeuralNetworkStore(useShallow(state => Object.keys(state.layers)));
 const useNeuronKeys = (id: string) => useNeuralNetworkStore(useShallow(state => Object.keys(state.layers[id].neurons)));
-const useConnectionKeys = ({ currentLayer, currentNeuron, nextNeuron }: ConnectionIDParam & {currentLayer: number}) => useNeuralNetworkStore(useShallow(state => {
-	const currentLayerID = getLayerID(currentLayer);
-	const connectionID = getConnectionID({ currentNeuron, nextNeuron });
-	return Object.keys(state.fromLayer[currentLayerID][connectionID]);
-}));
-const useNeuron = (id: string, _n: string) => useNeuralNetworkStore(state => state.layers[id].neurons[_n]);
+const useConnectionKeys = (id: string) => useNeuralNetworkStore(useShallow(state => Object.keys(state.fromLayer[id] ?? {})));
 
-export { useConnectionKeys, useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys };
+const useNeuron = (id: string, _n: string) => useNeuralNetworkStore(state => state.layers[id].neurons[_n]);
+const useConnection = (id: string, _c: string) => useNeuralNetworkStore(state => state.fromLayer[id][_c]);
+
+export { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys };
 
