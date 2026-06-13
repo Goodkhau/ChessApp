@@ -25,7 +25,7 @@ export default function Features() {
 		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>
 			<div className="sticky text-7xl top-0 z-100 text-white">{scrollProgress}</div>
 			<div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center
-				transition-transform ease-in duration-400 ${scrollProgress > 0.1 ? "translate-y-0" : "translate-y-160"}
+				transition-transform ease-in duration-400 ${scrollProgress > 0.1 ? "translate-y-0" : "translate-y-320"}
 			`}>
 				<NeuralNetworkComponent />
 			</div>

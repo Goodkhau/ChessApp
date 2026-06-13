@@ -51,7 +51,8 @@ export default function NeuralNetworkComponent({ className }: { className?: stri
 		<svg
 			className={className ? className : ""}
 			viewBox="0 0 1440 720"
-			height={720}>
+			height={720}
+		>
 			{_.map(layers, layer => {
 				return <ConnectionLayerComponent layerName={layer}/>;
 			})}
