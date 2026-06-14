@@ -4,9 +4,9 @@ import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, 
 
 useNeuralNetworkStore.getState().createNetwork();
 
-const adjustment = 0.9;
+const weightshift = 0.1;
 const getHexFromWeight = ({ weight, transparency = 1 } : {weight: number, transparency?: number}) => {
-	weight = weight * adjustment + (1 - adjustment);
+	weight = weight * (1 - weightshift) + weightshift;
 	return Math.floor(255 * weight * transparency).toString(16);
 };
 
@@ -23,8 +23,7 @@ function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: st
 		<>
 			<circle cx={x} cy={y} r={40} fill="#FFFFFF" />
 			<circle cx={x} cy={y} r={38} fill="#020617" />
-			<circle
-				cx={x} cy={y} r={38}
+			<circle cx={x} cy={y} r={38}
 				fill={`#808080${getHexFromWeight({
 					weight: Math.pow(weight, 2.5),
 					transparency,
@@ -50,7 +49,11 @@ function NeuronLayerComponent({ layerName, transparency }: {layerName:string, tr
 	return (
 		<>
 			{_.map(neurons, neuronKey =>
-				<NeuronComponent layerName={layerName} neuronKey={neuronKey} transparency={transparency} />,
+				<NeuronComponent
+					layerName={layerName}
+					neuronKey={neuronKey}
+					transparency={transparency}
+				/>,
 			)}
 		</>
 	);
@@ -61,7 +64,11 @@ function ConnectionLayerComponent({ layerName, transparency }: {layerName: strin
 	return (
 		<>
 			{_.map(connections, connectionKey =>
-				<ConnectionComponent layerName={layerName} connectionKey={connectionKey} transparency={transparency} />,
+				<ConnectionComponent
+					layerName={layerName}
+					connectionKey={connectionKey}
+					transparency={transparency}
+				/>,
 			)}
 		</>
 	);
@@ -69,6 +76,8 @@ function ConnectionLayerComponent({ layerName, transparency }: {layerName: strin
 
 export default function NeuralNetworkComponent({ className, progress = 1 }: { className?: string, progress?: number }) {
 	const layers = useLayerKeys();
+
+	progress = Math.min(progress / 0.9, 1);
 	
 	return (
 		<svg
@@ -81,7 +90,7 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 					layerName={layer}
 					transparency={
 						calculateTransparency({
-							progress: progress * layers.length,
+							progress: progress * (layers.length - 1),
 							index,
 						})
 					}
@@ -92,7 +101,7 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 					layerName={layer}
 					transparency={
 						calculateTransparency({
-							progress: progress * layers.length + 1,
+							progress: progress * (layers.length),
 							index,
 						})
 					}
