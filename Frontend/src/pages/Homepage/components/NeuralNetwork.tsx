@@ -4,21 +4,27 @@ import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, 
 
 useNeuralNetworkStore.getState().createNetwork();
 
-function NeuronComponent({ layerName, neuronKey }: { layerName: string, neuronKey: string }) {
-	const neuron = useNeuron(layerName, neuronKey);
+const adjustment = 0.8;
+const getHexFromWeight = (weight: number) => {
+	weight = weight * adjustment + (1 - adjustment);
+	return Math.floor(255 * weight).toString(16);
+};
 
+function NeuronComponent({ layerName, neuronKey }: { layerName: string, neuronKey: string }) {
+	const { x, y, weight } = useNeuron(layerName, neuronKey);
 	return (
 		<>
-			<circle cx={neuron.x} cy={neuron.y} r={40} fill="white" />
-			<circle cx={neuron.x} cy={neuron.y} r={38} fill="gray" />
+			<circle cx={x} cy={y} r={40} fill="#FFFFFF" />
+			<circle cx={x} cy={y} r={38} fill="#020617" />
+			<circle cx={x} cy={y} r={38} fill={`#808080${getHexFromWeight(Math.pow(weight, 2.5))}`} />
 		</>
 	);
 }
 
 function ConnectionComponent({ layerName, connectionKey }: {layerName: string, connectionKey: string}) {
-	const { x1, x2, y1, y2 } = useConnection(layerName, connectionKey);
+	const { x1, x2, y1, y2, weight } = useConnection(layerName, connectionKey);
 	return (
-		<line x1={x1} y1={y1} x2={x2} y2={y2} stroke="white" />
+		<line x1={x1} y1={y1} x2={x2} y2={y2} stroke={`#FFFFFF${getHexFromWeight(weight)}`} />
 	);
 }
 
@@ -35,6 +41,7 @@ function NeuronLayerComponent({ layerName }: {layerName:string}) {
 
 function ConnectionLayerComponent({ layerName }: {layerName: string}) {
 	const connections = useConnectionKeys(layerName);
+	console.log(connections);
 	return (
 		<>
 			{_.map(connections, connectionKey =>

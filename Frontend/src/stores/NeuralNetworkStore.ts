@@ -27,6 +27,7 @@ interface FromLayer {
 }
 
 interface Connection {
+	weight: number;
 	x1: number;
 	y1: number;
 	x2: number;
@@ -99,12 +100,19 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 			if (maxCount === undefined)
 				throw new Error();
 
+			const weightList: number[] = [];
+			for (let currentNeuron = 0; currentNeuron < LAYERS_CONF[currentLayer].neuronCount; currentNeuron++) {
+				weightList.push(Math.random());
+			}
+
+			const totalWeight = _.maxBy(weightList) ?? 1;
+
 			for (let currentNeuron = 0; currentNeuron < LAYERS_CONF[currentLayer].neuronCount; currentNeuron++) {
 				const _n = getNeuronID(currentNeuron);
 				const displacement = (HEIGHT / (maxCount + 1) * (maxCount - LAYERS_CONF[currentLayer].neuronCount + 1)) / 2;
 				const placement = HEIGHT / (maxCount + 1) * (currentNeuron + 1 / 2);
 				NeuralNetwork.layers[id].neurons[_n] = {
-					weight: Math.random(),
+					weight: weightList[currentNeuron] / totalWeight,
 					x: WIDTH / (LAYERS_CONF.length + 1) * (currentLayer + 1),
 					y: placement + displacement,
 				};
@@ -121,11 +129,14 @@ const useNeuralNetworkStore = create<State & Actions>()((set) => ({
 
 			for (let currentNeuron = 0; currentNeuron < LAYERS_CONF[currentLayer].neuronCount; currentNeuron++) {
 				const currentNeuronID = getNeuronID(currentNeuron);
+				const currentWeight = NeuralNetwork.layers[currentLayerID].neurons[currentNeuronID].weight;
 
 				for (let nextNeuron = 0; nextNeuron < nextLayerConf.neuronCount; nextNeuron++) {
 					const nextNeuronID = getNeuronID(nextNeuron);
+					const nextWeight = NeuralNetwork.layers[nextLayerID].neurons[nextNeuronID].weight;
 					const _c = getConnectionID({ currentNeuron, nextNeuron });
 					NeuralNetwork.fromLayer[currentLayerID][_c] = {
+						weight: Math.pow(currentWeight * nextWeight, 5),
 						x1: NeuralNetwork.layers[currentLayerID].neurons[currentNeuronID].x,
 						y1: NeuralNetwork.layers[currentLayerID].neurons[currentNeuronID].y,
 						x2: NeuralNetwork.layers[nextLayerID].neurons[nextNeuronID].x,
