@@ -4,25 +4,28 @@ import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, 
 
 useNeuralNetworkStore.getState().createNetwork();
 
+const startPadding = 0.1;
+const endPadding = 0.1;
 const calculateProgress = (progress: number) => {
-	const startPadding = 0.1;
-	const endPadding = 0.1;
 	return Math.min(Math.max((progress - startPadding), 0) / (1 - startPadding - endPadding), 1);
 };
 
 const weightshift = 0.1;
 const getHexFromWeight = ({ weight, transparency = 1 } : {weight: number, transparency?: number}) => {
 	weight = weight * (1 - weightshift) + weightshift;
-	return Math.floor(255 * weight * transparency).toString(16);
+	const hexStr = Math.floor(255 * weight * transparency).toString(16).toUpperCase();
+	return (hexStr.length === 1) ? `0${hexStr}` : hexStr;
 };
 
+const animationTemperature = 2;
 const calculateTransparency = ({ progress, index }: {progress: number, index: number}) => {
 	const transparency = (progress > index)
 		? Math.min(progress - index, 1)
 		: 0;
-	return Math.pow(transparency, 2); 
+	return Math.pow(transparency, animationTemperature); 
 }; 
 
+const neuronShadeTemperature = 2.5;
 function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: string, neuronKey: string, transparency: number }) {
 	const { x, y, weight } = useNeuron(layerName, neuronKey);
 	return (
@@ -31,7 +34,7 @@ function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: st
 			<circle cx={x} cy={y} r={38} fill="#020617" />
 			<circle cx={x} cy={y} r={38}
 				fill={`#808080${getHexFromWeight({
-					weight: Math.pow(weight, 2.5),
+					weight: Math.pow(weight, neuronShadeTemperature),
 					transparency,
 				})}`}
 			/>
@@ -96,7 +99,7 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 					layerName={layer}
 					transparency={
 						calculateTransparency({
-							progress: progress * (layers.length - 1), // Fence post issue, we have 1 less connection layer than neuron
+							progress: progress * (layers.length - 1), // Fence post issue, we have one less connection layer than neuron
 							index,
 						})
 					}
