@@ -27,7 +27,7 @@ export default function Features() {
 			<div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center
 				transition-transform ease-in duration-400 ${scrollProgress > 0.1 ? "translate-y-0" : "translate-y-320"}
 			`}>
-				<NeuralNetworkComponent />
+				<NeuralNetworkComponent progress={scrollProgress} />
 			</div>
 		</section>
 	);
