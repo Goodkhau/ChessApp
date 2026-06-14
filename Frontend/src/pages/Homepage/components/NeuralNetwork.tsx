@@ -4,6 +4,12 @@ import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, 
 
 useNeuralNetworkStore.getState().createNetwork();
 
+const calculateProgress = (progress: number) => {
+	const startPadding = 0.1;
+	const endPadding = 0.1;
+	return Math.min(Math.max((progress - startPadding), 0) / (1 - startPadding - endPadding), 1);
+};
+
 const weightshift = 0.1;
 const getHexFromWeight = ({ weight, transparency = 1 } : {weight: number, transparency?: number}) => {
 	weight = weight * (1 - weightshift) + weightshift;
@@ -77,7 +83,7 @@ function ConnectionLayerComponent({ layerName, transparency }: {layerName: strin
 export default function NeuralNetworkComponent({ className, progress = 1 }: { className?: string, progress?: number }) {
 	const layers = useLayerKeys();
 
-	progress = Math.min(progress / 0.9, 1);
+	progress = calculateProgress(progress);
 	
 	return (
 		<svg
@@ -90,7 +96,7 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 					layerName={layer}
 					transparency={
 						calculateTransparency({
-							progress: progress * (layers.length - 1),
+							progress: progress * (layers.length - 1), // Fence post issue, we have 1 less connection layer than neuron
 							index,
 						})
 					}
