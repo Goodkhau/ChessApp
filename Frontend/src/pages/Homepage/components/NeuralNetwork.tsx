@@ -10,6 +10,13 @@ const getHexFromWeight = ({ weight, transparency = 1 } : {weight: number, transp
 	return Math.floor(255 * weight * transparency).toString(16);
 };
 
+const calculateTransparency = ({ progress, index }: {progress: number, index: number}) => {
+	const transparency = (progress > index)
+		? Math.min(progress - index, 1)
+		: 0;
+	return Math.pow(transparency, 2); 
+}; 
+
 function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: string, neuronKey: string, transparency: number }) {
 	const { x, y, weight } = useNeuron(layerName, neuronKey);
 	return (
@@ -69,18 +76,28 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 			viewBox="0 0 1440 720"
 			height={600}
 		>
-			{_.map(layers, (layer, index) => {
-				const transparency =  (progress * layers.length > index)
-					? Math.min(progress * layers.length - index, 1)
-					: 0;
-				return <ConnectionLayerComponent layerName={layer} transparency={transparency} />;
-			})}
-			{_.map(layers, (layer, index) => {
-				const transparency =  (progress * layers.length > index)
-					? Math.min(progress * layers.length - index, 1)
-					: 0;
-				return <NeuronLayerComponent layerName={layer} transparency={transparency} />;
-			})}
+			{_.map(layers, (layer, index) =>
+				<ConnectionLayerComponent
+					layerName={layer}
+					transparency={
+						calculateTransparency({
+							progress: progress * layers.length,
+							index,
+						})
+					}
+				/>,
+			)}
+			{_.map(layers, (layer, index) =>
+				<NeuronLayerComponent
+					layerName={layer}
+					transparency={
+						calculateTransparency({
+							progress: progress * layers.length + 1,
+							index,
+						})
+					}
+				/>,
+			)}
 		</svg>
 	);
 }
