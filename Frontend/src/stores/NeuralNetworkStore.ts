@@ -1,6 +1,5 @@
 import _ from "lodash";
 import { create } from "zustand";
-
 import { useShallow } from "zustand/shallow";
 
 interface LayerConfig {

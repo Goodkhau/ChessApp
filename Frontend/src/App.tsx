@@ -22,8 +22,8 @@ function Layout() {
 	const { scrollProgress } = useScrollStore();
 	return (
 		<main className={`min-h-screen transition-all duration-500
-			${scrollProgress > 0.1 && scrollProgress < 1.0 ? "bg-slate-950" : ""}`}
-		>
+			${scrollProgress > 0.1 && scrollProgress < 1.0 ? "bg-slate-950" : ""}`
+		}>
 			<Navigation />
 			<AnimatePresence mode="wait">
 				<Routes location={location} key={location.pathname}>

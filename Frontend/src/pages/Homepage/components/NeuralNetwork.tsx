@@ -2,13 +2,9 @@ import _ from "lodash";
 
 import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys } from "../../../stores/NeuralNetworkStore";
 
-useNeuralNetworkStore.getState().createNetwork();
+import { calculateProgress } from "../utilities/progressHelperFunctions.ts";
 
-const startPadding = 0.1;
-const endPadding = 0.1;
-const calculateProgress = (progress: number) => {
-	return Math.min(Math.max((progress - startPadding), 0) / (1 - startPadding - endPadding), 1);
-};
+useNeuralNetworkStore.getState().createNetwork();
 
 const weightshift = 0.1;
 const getHexFromWeight = ({ weight, transparency = 1 } : {weight: number, transparency?: number}) => {
@@ -86,13 +82,13 @@ function ConnectionLayerComponent({ layerName, transparency }: {layerName: strin
 export default function NeuralNetworkComponent({ className, progress = 1 }: { className?: string, progress?: number }) {
 	const layers = useLayerKeys();
 
-	progress = calculateProgress(progress);
+	progress = calculateProgress({ progress });
 	
 	return (
 		<svg
 			className={className ? className : ""}
 			viewBox="0 0 1440 720"
-			height={600}
+			height={540}
 		>
 			{_.map(layers, (layer, index) =>
 				<ConnectionLayerComponent
