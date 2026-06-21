@@ -21,15 +21,18 @@ const calculateTransparency = ({ progress, index }: {progress: number, index: nu
 	return Math.pow(transparency, animationTemperature); 
 }; 
 
+const white = "#FFFFFF";
+const slate_950 = "#020617";
+const gray = "#808080";
 const neuronShadeTemperature = 2.5;
 function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: string, neuronKey: string, transparency: number }) {
 	const { x, y, weight } = useNeuron(layerName, neuronKey);
 	return (
 		<>
-			<circle cx={x} cy={y} r={40} fill="#FFFFFF" />
-			<circle cx={x} cy={y} r={38} fill="#020617" />
+			<circle cx={x} cy={y} r={40} fill={white} />
+			<circle cx={x} cy={y} r={38} fill={slate_950} />
 			<circle cx={x} cy={y} r={38}
-				fill={`#808080${getHexFromWeight({
+				fill={`${gray}${getHexFromWeight({
 					weight: Math.pow(weight, neuronShadeTemperature),
 					transparency,
 				})}`}
@@ -44,7 +47,7 @@ function ConnectionComponent({ layerName, connectionKey, transparency }: {layerN
 		<line
 			x1={x1} y1={y1}
 			x2={x2} y2={y2}
-			stroke={`#FFFFFF${getHexFromWeight({ weight, transparency })}`}
+			stroke={`${white}${getHexFromWeight({ weight, transparency })}`}
 		/>
 	);
 }
@@ -95,8 +98,8 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 					layerName={layer}
 					transparency={
 						calculateTransparency({
-							progress: progress * (layers.length - 1), // Fence post issue, we have one less connection layer than neuron
-							index,
+							progress: progress * (layers.length), // Fence post issue, we have one less connection layer than neuron
+							index: index + 1,
 						})
 					}
 				/>,

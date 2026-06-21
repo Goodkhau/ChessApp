@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import Navigation from './components/Navigation.tsx';
 import PageTransition from "./pages/Animations/PageAnimation.tsx";
 import { Pages } from "./pages/index.tsx";
-import { useScrollStore } from "./stores/ScollStore.ts";
 
 const PageKeys = Object.keys(Pages) as Array<keyof typeof Pages>;
 
@@ -19,11 +18,8 @@ export default function App() {
 
 function Layout() {
 	const location = useLocation();
-	const { scrollProgress } = useScrollStore();
 	return (
-		<main className={`min-h-screen transition-all duration-500
-			${scrollProgress > 0.1 && scrollProgress < 1.0 ? "bg-slate-950" : ""}`
-		}>
+		<main className={`min-h-screen transition-all duration-500`}>
 			<Navigation />
 			<AnimatePresence mode="wait">
 				<Routes location={location} key={location.pathname}>

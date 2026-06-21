@@ -24,17 +24,17 @@ export default function Features() {
 
 	return (
 		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>
-			<div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center
+			<div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center gap-4
 				transition-transform ease-in duration-200
-				${(scrollProgress > 0.1) ? (scrollProgress > 0.99 ? "-translate-y-240" : "translate-y-0") : "translate-y-240"}`
+				${(scrollProgress > 0.11) ? (scrollProgress > 0.99 ? "-translate-y-240" : "translate-y-0") : "translate-y-240"}`
 			}>
-				<div className="flex justify-between bg-slate-900 rounded-4xl">
-					<div className="flex flex-col justify-center p-4">
+				<div className="flex justify-between gap-4">
+					<div className="flex flex-col justify-center p-4 bg-slate-950 rounded-4xl">
 						<h2 className="text-xl text-center text-slate-300">Neural Network</h2>
 					</div>
-					<NeuralNetworkComponent className="bg-slate-800 rounded-4xl" progress={scrollProgress} />
+					<NeuralNetworkComponent className="bg-slate-950 rounded-4xl" progress={scrollProgress} />
 				</div>
-				<div className="relative mt-4 h-4 bg-slate-800 w-full rounded-4xl"
+				<div className="relative h-4 bg-slate-950 w-full rounded-4xl"
 					style={{ width: `${calculateProgress({ progress: scrollProgress, startPadding: 0.15 }) * 100}%` }}
 				/>
 			</div>
