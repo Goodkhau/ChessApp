@@ -1,10 +1,9 @@
 import _ from "lodash";
+import { useEffect } from "react";
 
 import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys } from "../../../stores/NeuralNetworkStore";
 
 import { calculateProgress } from "../utilities/progressHelperFunctions.ts";
-
-useNeuralNetworkStore.getState().createNetwork();
 
 const weightshift = 0.1;
 const getHexFromWeight = ({ weight, transparency = 1 } : {weight: number, transparency?: number}) => {
@@ -84,6 +83,10 @@ function ConnectionLayerComponent({ layerName, transparency }: {layerName: strin
 
 export default function NeuralNetworkComponent({ className, progress = 1 }: { className?: string, progress?: number }) {
 	const layers = useLayerKeys();
+
+	useEffect(() => {
+		useNeuralNetworkStore.getState().createNetwork();
+	}, []);
 
 	progress = calculateProgress({ progress });
 	
