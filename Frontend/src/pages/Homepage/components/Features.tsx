@@ -1,9 +1,8 @@
-import { useScroll } from "framer-motion";
+import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef } from "react";
 
 import { usePageStore } from "../../../stores/PageStore.ts";
 import { useScrollStore } from "../../../stores/ScollStore.ts";
-import { useInterval } from "../hooks/useInterval";
 import { calculateProgress } from "../utilities/progressHelperFunctions.ts";
 import NeuralNetworkComponent from "./NeuralNetwork.tsx";
 
@@ -17,10 +16,9 @@ export default function Features() {
 		offset: ["start end", "end end"],
 	});
 
-	useInterval(() => {
-		if (currentPage === "Home")
-			setScrollProgress(scrollYProgress.get());
-	}, 20);
+	useMotionValueEvent(scrollYProgress, "change", (latest) => {
+		if (currentPage === "Home") setScrollProgress(latest);
+	});
 
 	return (
 		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>
