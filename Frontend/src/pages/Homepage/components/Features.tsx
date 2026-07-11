@@ -1,14 +1,12 @@
-import { useMotionValueEvent, useScroll } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef } from "react";
 
-import { usePageStore } from "../../../stores/PageStore.ts";
 import { useScrollStore } from "../../../stores/ScollStore.ts";
 import { calculateProgress } from "../utilities/progressHelperFunctions.ts";
 import NeuralNetworkComponent from "./NeuralNetwork.tsx";
 
 export default function Features() {
 	const { scrollProgress, setScrollProgress } = useScrollStore();
-	const { currentPage } = usePageStore();
 	const ref = useRef(null);
 	
 	const { scrollYProgress } = useScroll({
@@ -17,12 +15,14 @@ export default function Features() {
 	});
 
 	useMotionValueEvent(scrollYProgress, "change", (latest) => {
-		if (currentPage === "Home") setScrollProgress(latest);
+		setScrollProgress(latest);
 	});
 
+	const width = `${calculateProgress({ progress: scrollProgress, startPadding: 0.15 }) * 100}%`;
+
 	return (
-		<section className="max-w-7xl mx-auto h-2500 py-32 px-6" ref={ref}>
-			<div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center gap-4
+		<section className="max-w-7xl mx-auto h-[10000px] py-32 px-6" ref={ref}>
+			<motion.div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center gap-4
 				transition-transform ease-in duration-200
 				${(scrollProgress > 0.11) ? (scrollProgress > 0.99 ? "-translate-y-240" : "translate-y-0") : "translate-y-240"}`
 			}>
@@ -32,10 +32,10 @@ export default function Features() {
 					</div>
 					<NeuralNetworkComponent className="bg-slate-950 rounded-4xl" progress={scrollProgress} />
 				</div>
-				<div className="relative h-4 bg-slate-950 w-full rounded-4xl"
-					style={{ width: `${calculateProgress({ progress: scrollProgress, startPadding: 0.15 }) * 100}%` }}
+				<motion.div className="relative h-4 bg-linear-to-r from-amber-400 via-orange-500 to-red-500 w-full rounded-4xl"
+					style={{ width }}
 				/>
-			</div>
+			</motion.div>
 		</section>
 	);
 }

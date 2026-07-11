@@ -3,6 +3,7 @@ import { useEffect } from "react";
 
 import { useConnection, useConnectionKeys, useLayerKeys, useNeuralNetworkStore, useNeuron, useNeuronKeys } from "../../../stores/NeuralNetworkStore";
 
+import { motion } from "framer-motion";
 import { calculateProgress } from "../utilities/progressHelperFunctions.ts";
 
 const weightshift = 0.1;
@@ -28,9 +29,9 @@ function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: st
 	const { x, y, weight } = useNeuron(layerName, neuronKey);
 	return (
 		<>
-			<circle cx={x} cy={y} r={40} fill={white} />
-			<circle cx={x} cy={y} r={38} fill={slate_950} />
-			<circle cx={x} cy={y} r={38}
+			<motion.circle cx={x} cy={y} r={40} fill={white} />
+			<motion.circle cx={x} cy={y} r={38} fill={slate_950} />
+			<motion.circle cx={x} cy={y} r={38}
 				fill={`${gray}${getHexFromWeight({
 					weight: Math.pow(weight, neuronShadeTemperature),
 					transparency,
@@ -43,7 +44,7 @@ function NeuronComponent({ layerName, neuronKey, transparency }: { layerName: st
 function ConnectionComponent({ layerName, connectionKey, transparency }: {layerName: string, connectionKey: string, transparency: number}) {
 	const { x1, x2, y1, y2, weight } = useConnection(layerName, connectionKey);
 	return (
-		<line
+		<motion.line
 			x1={x1} y1={y1}
 			x2={x2} y2={y2}
 			stroke={`${white}${getHexFromWeight({ weight, transparency })}`}
@@ -91,7 +92,7 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 	progress = calculateProgress({ progress });
 	
 	return (
-		<svg
+		<motion.svg
 			className={className ? className : ""}
 			viewBox="0 0 1440 720"
 			height={540}
@@ -118,6 +119,6 @@ export default function NeuralNetworkComponent({ className, progress = 1 }: { cl
 					}
 				/>,
 			)}
-		</svg>
+		</motion.svg>
 	);
 }
