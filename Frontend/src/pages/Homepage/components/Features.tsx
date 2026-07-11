@@ -27,10 +27,10 @@ export default function Features() {
 				${(scrollProgress > 0.11) ? (scrollProgress > 0.99 ? "-translate-y-240" : "translate-y-0") : "translate-y-240"}`
 			}>
 				<div className="flex justify-between gap-4">
-					<div className="flex flex-col justify-center p-4 bg-slate-950 rounded-4xl">
+					<div className="flex flex-col justify-center p-4 bg-linear-to-br from-slate-950/80 via-slate-950/95 to-slate-950/80 rounded-4xl">
 						<h2 className="text-xl text-center text-slate-300">Neural Network</h2>
 					</div>
-					<NeuralNetworkComponent className="bg-slate-950 rounded-4xl" progress={scrollProgress} />
+					<NeuralNetworkComponent className="bg-linear-to-br from-slate-950/70 via-slate-950/90 to-slate-950/70 rounded-4xl" progress={scrollProgress} />
 				</div>
 				<motion.div className="relative h-4 bg-linear-to-r from-amber-400 via-orange-500 to-red-500 w-full rounded-4xl"
 					style={{ width }}
