@@ -41,7 +41,7 @@ export default function Title() {
 	}, 1000);
 	
 	return (
-		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 
+		<section className="min-h-screen max-w-7xl w-full mx-auto py-20 bg-slate-800
 			grid grid-cols-1 lg:grid-cols-2 gap-16 items-center"
 		>
 			<div className={`space-y-8 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-10 -translate-x-8'}`}>

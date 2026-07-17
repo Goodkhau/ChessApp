@@ -1,6 +1,6 @@
 import { Square } from "chess.js";
 import _ from "lodash";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Chessboard, PieceDropHandlerArgs, SquareHandlerArgs } from "react-chessboard";
 
 import { useChessStoreActions, useInstanceBoardOrientation, useInstanceChessEngine, useInstanceModelName } from "../../../stores/ChessStore.ts";
@@ -12,6 +12,8 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 	const chessEngine = useInstanceChessEngine(instanceKey);
 	const modelName = useInstanceModelName(instanceKey);
 	const boardOrientation = useInstanceBoardOrientation(instanceKey);
+	const playerIsWhite = boardOrientation === "white";
+	const whiteTurn = useRef(true);
 
 	const [chessPosition, setChessPosition] = useState(chessEngine.fen());
 	const [optionSquares, setOptionSquares] = useState({});
@@ -32,6 +34,7 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 		
 		setInstancePredictionList(instanceKey, newPredictionList);
 		chessEngine.move(selectedMove.move);
+		whiteTurn.current = !whiteTurn.current;
 		setChessPosition(chessEngine.fen());
 		setMoveFrom('');
 		setOptionSquares({});
@@ -85,8 +88,13 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 			return;
 		}
 
+		if (playerIsWhite !== whiteTurn.current) {
+			return;
+		}
+
 		try {
 			chessEngine.move({ from: moveFrom, to: square, promotion: 'q' }); //Promotion needs to be implemented
+			whiteTurn.current = !whiteTurn.current;
 			setChessPosition(chessEngine.fen());
 			moveAI();
 		} catch {
@@ -105,12 +113,16 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 			return false;
 		}
 
+		if (playerIsWhite !== whiteTurn.current) {
+			return false;
+		}
+
 		try {
 			chessEngine.move({
 				from: sourceSquare,
 				to: targetSquare,
 			});
-
+			whiteTurn.current = !whiteTurn.current;
 			setChessPosition(chessEngine.fen());
 			moveAI();
 
