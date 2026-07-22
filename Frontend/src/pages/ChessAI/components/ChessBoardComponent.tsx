@@ -13,7 +13,7 @@ export default function ChessBoardComponent({ instanceKey }: {instanceKey: strin
 	const modelName = useInstanceModelName(instanceKey);
 	const boardOrientation = useInstanceBoardOrientation(instanceKey);
 	const playerIsWhite = boardOrientation === "white";
-	const whiteTurn = useRef(true);
+	const whiteTurn = useRef(playerIsWhite);
 
 	const [chessPosition, setChessPosition] = useState(chessEngine.fen());
 	const [optionSquares, setOptionSquares] = useState({});
