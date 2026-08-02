@@ -103,9 +103,6 @@ export default function Title() {
 					<div className="relative border-2 border-white/10 rounded-lg overflow-hidden shadow-2xl">
 						<Chessboard options={{ position: gamePosition }} />
 					</div>
-					<div className="absolute -bottom-4 -right-4 px-4 py-2 bg-black/80 backdrop-blur border border-amber-500/30 rounded text-xs text-amber-400">
-					Example Game
-					</div>
 				</div>
 			</div>
 		</section>
