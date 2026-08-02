@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router";
 
 import { Pages } from "../pages/index.tsx";
 import { usePageStoreActions } from "../stores/PageStore.ts";

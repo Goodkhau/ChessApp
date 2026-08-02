@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import { useCurrentIndex, usePreviousIndex } from '../../stores/PageStore';
 
 interface PageTransitionProps {
