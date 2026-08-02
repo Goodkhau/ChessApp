@@ -1,7 +1,7 @@
+import { AnimatePresence } from "framer-motion";
 import _ from "lodash";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
-import { AnimatePresence } from "framer-motion";
 import Navigation from './components/Navigation.tsx';
 import PageTransition from "./pages/Animations/PageAnimation.tsx";
 import { Pages } from "./pages/index.tsx";
@@ -19,7 +19,7 @@ export default function App() {
 function Layout() {
 	const location = useLocation();
 	return (
-		<main className="min-h-screen overflow-hidden">
+		<main className={`min-h-screen transition-all duration-500`}>
 			<Navigation />
 			<AnimatePresence mode="wait">
 				<Routes location={location} key={location.pathname}>

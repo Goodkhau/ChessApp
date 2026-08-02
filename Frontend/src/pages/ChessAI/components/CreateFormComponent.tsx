@@ -18,11 +18,11 @@ export default function CreateForm() {
 		const id = String(formData.get("boardName"));
 		const modelName = String(formData.get("chessModel"));
 		const boardOrientation = String(formData.get("playerColor")) === "white" ? "white" : "black";
-		const isWhite = boardOrientation === "white";
+		const whiteTurn = boardOrientation === "white";
 		const chessEngine = new Chess();
 		let predictions: Prediction[] = [];
 
-		if (!isWhite) {
+		if (!whiteTurn) {
 			const handler = new ModelResponseHandler();
 			const {
 				selectedMove,
@@ -36,7 +36,6 @@ export default function CreateForm() {
 			modelName,
 			boardOrientation,
 			showDeleteForm: false,
-			isWhite,
 			chessEngine,
 			predictions,
 		};

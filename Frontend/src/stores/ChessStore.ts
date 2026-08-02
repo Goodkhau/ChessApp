@@ -13,7 +13,6 @@ interface ChessDetails {
 	modelName: string;
 	boardOrientation: "white" | "black";
 	showDeleteForm: boolean;
-	isWhite: boolean;
 	chessEngine: Chess;
 	predictions: Prediction[];
 }
@@ -100,7 +99,6 @@ const useShowCreateForm = () => useChessStore((state) => state.showCreateForm);
 
 const useInstanceChessEngine = (id: string) => useChessStore((state) => state.instances[id].chessEngine);
 const useInstancePredictionList = (id: string) => useChessStore((state) => state.instances[id].predictions);
-const useInstancePlayerColor = (id: string) => useChessStore((state) => state.instances[id].isWhite);
 const useInstanceBoardOrientation = (id: string) => useChessStore((state) => state.instances[id].boardOrientation);
 const useShowDeleteForm = (id: string) => useChessStore((state) => state.instances[id].showDeleteForm);
 const useInstanceModelName = (id: string) => useChessStore((state) => state.instances[id].modelName);
@@ -109,7 +107,7 @@ export {
 	useChessStoreActions,
 	useInstanceBoardOrientation,
 	useInstanceChessEngine,
-	useInstanceKeys, useInstanceModelName, useInstancePlayerColor,
+	useInstanceKeys, useInstanceModelName,
 	useInstancePredictionList,
 	useShowCreateForm,
 	useShowDeleteForm,
