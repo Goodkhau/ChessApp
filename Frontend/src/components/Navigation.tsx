@@ -12,7 +12,7 @@ export default function Navigation() {
 	const { updatePage } = usePageStoreActions();
 	const { setScrollProgress } = useScrollStore();
 	return (
-		<nav className="fixed left-0 right-0 z-50 backdrop-blur-sm">
+		<nav className="fixed left-0 right-0 top-0 z-50 backdrop-blur-sm">
 			<div className="flex flex-wrap items-center md:justify-between justify-center max-w-7xl w-9/10 p-6 mx-auto">
 				<div className="flex gap-2 items-center">
 					<span className="bg-linear-to-br from-amber-400 to-orange-500 bg-clip-text 
