@@ -13,9 +13,13 @@ export default function AboutPage() {
 		<section className="h-screen w-full flex flex-col items-center gap-2 py-24">
 			{_.map(Markdowns, ({ title, file }) => (
 				<details className="max-w-[100vw] p-2 prose rounded-xl">
-					<summary className="p-4 w-[80vw] bg-slate-800/90 rounded-t-xl">{title}</summary>
-					<div className="p-6 w-[80vw] overflow-clip text-white/60 bg-slate-800">
-						<ReactMarkdown>{file}</ReactMarkdown>
+					<summary className="p-4 w-[80vw] bg-slate-950/50 rounded-xl">{title}</summary>
+					<div className="p-6 w-[80vw] overflow-clip text-white/60 bg-slate-950/70">
+						<ReactMarkdown
+							components={{
+								h1: ({ node, ...props }) => <h1 className="text-4xl text-white/80 font-bold mb-4" {...props} />,
+							}}
+						>{file}</ReactMarkdown>
 					</div>
 				</details>
 			))}

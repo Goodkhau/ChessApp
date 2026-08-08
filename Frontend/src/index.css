@@ -5,14 +5,24 @@ html {
   @apply bg-slate-900
 }
 
-:root {
-  @apply text-white;
-  
-  h3 {
-    @apply text-2xl;
+@layer components {
+  a {
+    @apply text-white;
   }
   
+  h1 {
+    @apply text-4xl text-white/95;
+  }
+
+  h2 {
+    @apply text-3xl text-white/95;
+  }
+  
+  h3 {
+    @apply text-2xl text-white/95;
+  }
+
   label {
-    @apply text-sm
+    @apply text-sm;
   }
 }
