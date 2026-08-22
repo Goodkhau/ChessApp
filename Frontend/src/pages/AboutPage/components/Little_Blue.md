@@ -1,1 +1,2 @@
 # Model Training Process
+Tensorflow is a heavy process to run on a computer which makes it unfortunate that I could only train it on my 16GB DDR3 ram laptop with no dedicated GPU. The entire process took about two weeks where I would train my model during the day when I would be at work and pause it as soon as I got home do homework or work on personal projects. 
