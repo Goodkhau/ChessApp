@@ -9,8 +9,8 @@ const MINOR = 64; // px between minor grid lines
 const MAJOR = MINOR * 4; // px between major grid lines (every 4th line, brighter)
 const PARALLAX_FACTOR = 0.4; // 0 = static, 1 = moves with content. Lower = subtler.
  
-const MINOR_LINE = "rgba(51, 65, 85, 0.35)"; // slate-500 @ low opacity
-const MAJOR_LINE = "rgba(51, 65, 85, 0.35)"; // slate-400 @ low opacity
+const MINOR_LINE = "rgba(51, 65, 85, 0.25)"; // slate-500 @ low opacity
+const MAJOR_LINE = "rgba(51, 65, 85, 0.25)"; // slate-400 @ low opacity
  
 export function ScrollGridBackground(): React.ReactElement {
 	const gridRef = useRef<HTMLDivElement | null>(null);

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Chessboard } from "react-chessboard";
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router";
 
 import { Chess } from "chess.js";
 import { Pages } from "../..";

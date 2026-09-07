@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import _ from "lodash";
-import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 
 import Navigation from './components/Navigation.tsx';
 import PageTransition from "./pages/Animations/PageAnimation.tsx";
