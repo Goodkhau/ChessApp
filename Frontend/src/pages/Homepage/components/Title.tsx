@@ -69,7 +69,7 @@ export default function Title() {
 							onClick={() => updatePage("ChessAI")}
 							className="px-8 py-4 bg-linear-to-r from-amber-500 to-orange-600 text-black/80 font-semibold rounded 
 						hover:scale-105 hover:from-amber-400 hover:to-orange-500">
-						Demo Models
+						Demo Model
 						</NavLink>
 						<NavLink
 							to={About.route}

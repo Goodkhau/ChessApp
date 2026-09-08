@@ -20,6 +20,6 @@ const useScrollStore = create<State & Actions>()((set) => ({
 }));
 
 export {
-    useScrollStore
+	useScrollStore
 };
 

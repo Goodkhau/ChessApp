@@ -38,9 +38,17 @@ interface Actions {
 
 
 const useChessStore = create<State & Actions>()((set, get) => ({
-	length: 0,
+	length: 1,
 	showCreateForm: false,
-	instances: {},
+	instances: {
+		"Default": {
+			modelName: "Default Game",
+			boardOrientation: "white",
+			showDeleteForm: false,
+			chessEngine: new Chess(),
+			predictions: [],
+		},
+	},
 
 	actions: {
 		hasInstance: (id) => {

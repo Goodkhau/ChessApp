@@ -110,6 +110,7 @@ function MarkDownList({ title, file }: MarkDownListProps) {
 	return (
 		<div className="max-w-[100vw] p-2 prose">
 			<button className={`
+				text-xl text-bold
 				p-4 w-[80vw] bg-slate-950/50 pointer
 				transition-all ease-in-out duration-0
 				${isOpen ? 'rounded-t-xl rounded-b-none' : 'delay-500 rounded-xl'}

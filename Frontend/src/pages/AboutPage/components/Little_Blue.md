@@ -1,4 +1,4 @@
-# Little Blue
+# Overview
 
 Little Blue is a from-scratch neural network that learns to play chess by pattern-matching board states to piece movement; an exercise in understanding deep learning fundamentals. This model is different from the groundbreaking LLMs we have, its a far more traditional form of deep learning that has been around for decades and lay the grounds for what we have today. Unfortunately, combining the weaknesses with this form of deep learning and my naive approach, this model does not perform very well.
 
