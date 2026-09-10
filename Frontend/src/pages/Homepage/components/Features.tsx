@@ -84,7 +84,7 @@ export default function Features() {
 	const width = `${calculateProgress({ progress: scrollProgress, startPadding: 0.15 }) * 100}%`;
 
 	return (
-		<section className="max-w-7xl mx-auto h-0 hidden lg:block lg:h-[10000px] py-32 px-6" ref={ref}>
+		<section className="max-w-7xl mx-auto h-0 hidden lg:block lg:h-2500 py-32 px-6" ref={ref}>
 			<ScrollGridBackground />
 			<motion.div className={`sticky z-10 top-0 h-screen flex flex-col items-center justify-center gap-4
 				transition-transform ease-in duration-200

@@ -41,10 +41,10 @@ export default function Title() {
 	}, 1000);
 	
 	return (
-		<section className="flex items-center justify-center min-h-screen w-full mx-auto py-20 px-auto bg-slate-800"
+		<section className="flex items-center justify-center min-h-screen w-full mx-auto pt-52 md:py-20 px-auto bg-slate-800"
 		>
 			<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-7xl w-full ">
-				<div className={`space-y-8 transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-10 -translate-x-8'}`}>
+				<div className={`flex flex-col items-center space-y-8 md:block transition-all duration-500 delay-100 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-10 -translate-x-8'}`}>
 					<div className="inline-block px-4 py-1 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-xs tracking-widest">
 						NEURAL NETWORK INTELLIGENCE
 					</div>

@@ -20,8 +20,8 @@ function Layout() {
 	const location = useLocation();
 	return (
 		<main className={`min-h-screen transition-all duration-500`}>
-			<Navigation />
 			<AnimatePresence mode="wait">
+				<Navigation />
 				<Routes location={location} key={location.pathname}>
 					{_.map(PageKeys, key =>
 						<Route

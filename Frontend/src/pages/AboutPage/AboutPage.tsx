@@ -111,14 +111,14 @@ function MarkDownList({ title, file }: MarkDownListProps) {
 		<div className="max-w-[100vw] p-2 prose">
 			<button className={`
 				text-xl text-bold
-				p-4 w-[80vw] bg-slate-950/50 pointer
+				p-4 w-[90vw] md:w-[80vw] bg-slate-950/50 pointer
 				transition-all ease-in-out duration-0
 				${isOpen ? 'rounded-t-xl rounded-b-none' : 'delay-500 rounded-xl'}
 			`}
 			onClick={() => setIsOpen(!isOpen)}
 			>{title}</button>
 			<div className={`
-					grid w-[80vw] overflow-clip text-white/60 bg-slate-950/70 rounded-b-xl
+					grid w-[90vw] md:w-[80vw] overflow-clip text-white/60 bg-slate-950/70 rounded-b-xl
 					transition-all ease-in-out duration-500 ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}
 				`}>
 				<div className="overflow-hidden min-h-0">
@@ -135,7 +135,7 @@ function MarkDownList({ title, file }: MarkDownListProps) {
 
 export default function AboutPage() {
 	return (
-		<section className="h-screen w-full flex flex-col items-center gap-2 py-24">
+		<section className="h-screen w-full flex flex-col items-center gap-2 py-50 md:py-24">
 			{_.map(Markdowns, ({ title, file }) => (
 				<MarkDownList title={title} file={file} />
 			))}
