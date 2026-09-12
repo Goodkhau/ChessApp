@@ -1,13 +1,13 @@
 from fastapi import FastAPI, HTTPException, status, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
-from magnum import Magnum
+from mangum import Mangum
 from pathlib import Path
 from typing import Annotated
 
 from Models.index import ModelEnum
 
 app = FastAPI()
-handler = Magnum(app)
+handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,
