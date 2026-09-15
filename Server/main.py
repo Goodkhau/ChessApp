@@ -11,10 +11,15 @@ handler = Mangum(app)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
+    allow_origins=[
+        "http://localhost:8000",
+        "http://127.0.0.1:8000",
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET"],
+    allow_headers=["Content-Type"],
 )
 
 @app.get("/api/model/{ModelName}")
@@ -35,6 +40,6 @@ async def model_response(request: Request, ModelName: str, san: list[str] = [], 
     return {
         'type': ModelEnum[ModelName].value.type(),
         'prediction': {
-            'psuedoSans': [ { 'psuedoSan': key, 'rating': value} for key, value in zip(description, prediction) ]
+            'psuedoSans': [ { 'psuedoSan': key, 'rating': value } for key, value in zip(description, prediction) ]
         }
     }

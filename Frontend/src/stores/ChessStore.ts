@@ -42,7 +42,7 @@ const useChessStore = create<State & Actions>()((set, get) => ({
 	showCreateForm: false,
 	instances: {
 		"Default": {
-			modelName: "Default Game",
+			modelName: "Little_Blue",
 			boardOrientation: "white",
 			showDeleteForm: false,
 			chessEngine: new Chess(),
